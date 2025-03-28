@@ -1,106 +1,142 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { IoIosNotifications } from "react-icons/io";
 import { FaSearch } from "react-icons/fa";
 import { IoReorderThree } from "react-icons/io5";
 
 function User() {
-    const [users, setUsers] = useState(null);
-    const [details, setDetails] = useState(null);
+  const [users, setUsers] = useState(null);
+  const [details, setDetails] = useState(null);
 
-    const fetchUsers = async () => {
-        try {
-            const res = await axios.get('/users/get');
-            const data = res.data.data;
-            setUsers(data);
-        } catch (error) {
-            console.log()
-        }
+  const fetchUsers = async () => {
+    try {
+      const res = await axios.get("/users/get");
+      const data = res.data.data;
+      setUsers(data);
+    } catch (error) {
+      console.log(error);
     }
+  };
 
-    const seeDetails = (details) => {
-        setDetails(details);
-    }
+  const seeDetails = (details) => {
+    setDetails(details);
+  };
 
-    useEffect(() => {
-        fetchUsers();
-    }, [])
+  useEffect(() => {
+    fetchUsers();
+  }, []);
 
   return (
-    <div className='w-full text-white h-screen bg-gradient-to-b from-[#151515] to-[#1a1a2e]'>
-        <nav className="mt-5 flex flex-row justify-between items-center px-20">
-            <p className="text-4xl">Users</p>
-            <div className="flex flex-row items-center justify-between bg-black px-5 py-3 w-1/2 rounded-full">
-                <p><IoReorderThree /></p>
-                <input 
-                placeholder="Search Market"
-                className="bg-transparent w-full mx-5 border-none outline-none"
-                type="text" />
-                <button><FaSearch /></button>
-            </div>
-            <p className="text-5xl"><IoIosNotifications /></p>
-        </nav>
-
-        <div className='px-20'>
-            <div className='flex flex-row gap-10 my-20'>
-                <div className='bg-black w-1/3 rounded-lg p-10'>
-                    <p className='text-xl mb-5'>Users</p>
-                    {users && users.map((user, index) => (
-                        <div key={index}>
-                            {user.authorized && (
-                                <button
-                                onClick={() => seeDetails(user)}
-                                className='my-2 cursor-pointer w-full'
-                                >
-                                   <div className='w-full flex flex-col items-start'>
-                                        <p className='text-xl'>{user.name}</p>
-                                        <p className='text-[17px] text-gray-400'>Coin Hold : {user.coin}</p>
-                                   </div>
-                                </button>
-                            )}
-                        </div>
-                    ))}
-                </div>
-
-                <div className='bg-black w-2/3 rounded-lg p-10'>
-                    <p className='text-xl'>User Details</p>
-                    {details == null ? (
-                        <div className='w-full h-full flex justify-center items-center'>
-                            <p>Loading...</p>
-                        </div>
-                    ) : (
-                        <div className='mt-8'>
-                            <p className='text-3xl'>{details.name}</p>
-                            <p className='text-xl text-gray-400 mt-2'>Country : <span className='text-white text-2xl'>{details.country}</span></p>
-                            <p className='text-xl mt-5 text-gray-400'>Total Coin : <span className='text-white text-2xl'>{details.coin}</span></p>
-
-                            <div className='mt-10'>
-                                <p className='text-xl'>Basic Details</p>
-                                <div className='mt-5'>
-
-                                    <div className='w-full flex flex-row justify-between'>
-                                        <p className='text-gray-400'>Email : <span className='text-white text-xl'>{details.email}</span></p>
-                                        <p className='text-gray-400'>Phone No : <span className='text-white text-xl'>{details.phone}</span></p>
-                                    </div>
-
-                                    <div className='w-full flex flex-row justify-between mt-5'>
-                                        <p className='text-gray-400'>Date of birth : <span className='text-white text-xl'>{details.dateOfBirth}</span></p>
-                                        <p className='text-gray-400'>Created At : <span className='text-white text-xl'>{new Date(details.createdAt).toLocaleDateString()}</span></p>
-
-                                    </div>
-
-                                    <p className='text-gray-400 mt-5'>Last Update : <span className='text-white text-xl'>{new Date(details.updatedAt).toLocaleDateString()}</span></p>
-
-                                    <p className='text-gray-400 mt-10'>Address : <span className='text-white text-xl'>{details.address}</span></p>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                </div>
-            </div>
+    <div className="w-full text-white h-screen bg-gradient-to-b from-[#151515] to-[#1a1a2e]">
+      {/* Navbar */}
+      <nav className="mt-5 flex flex-row justify-between items-center px-20">
+        <h1 className="text-3xl font-bold">Users</h1>
+        <div className="flex items-center bg-gray-800 px-5 py-2 rounded-full shadow-lg w-1/2">
+          <IoReorderThree className="text-2xl text-gray-400" />
+          <input
+            placeholder="Search Market"
+            className="bg-transparent w-full mx-3 text-white outline-none"
+            type="text"
+          />
+          <FaSearch className="text-gray-400 cursor-pointer" />
         </div>
+        <IoIosNotifications className="text-4xl text-gray-400 cursor-pointer" />
+      </nav>
+
+      <div className="px-40">
+        {/* Main Content */}
+      <div className="mt-40 grid md:grid-cols-3 gap-8">
+        {/* Users List */}
+        <div className="bg-gray-950 p-6 rounded-xl shadow-md">
+          <h2 className="text-xl font-semibold bg-gray-800 px-4 py-2 inline-block rounded-md">
+            Users
+          </h2>
+          <div className="mt-4 space-y-4">
+            {users ? (
+              users.map((user, index) =>
+                user.authorized ? (
+                  <button
+                    key={index}
+                    onClick={() => seeDetails(user)}
+                    className="block w-full text-left p-4 rounded-lg hover:bg-gray-800 transition-all"
+                  >
+                    <p className="text-lg font-medium">{user.name}</p>
+                    <p className="text-gray-400 text-sm">
+                      Coin Hold: <span className="text-white">{user.coin}</span>
+                    </p>
+                  </button>
+                ) : null
+              )
+            ) : (
+              <p className="text-gray-400">Loading users...</p>
+            )}
+          </div>
+        </div>
+
+        {/* User Details */}
+        <div className="col-span-2 bg-gray-950 p-6 rounded-xl shadow-md">
+          <h2 className="text-xl font-semibold bg-gray-800 px-4 py-2 inline-block rounded-md">
+            User Details
+          </h2>
+
+          {/* Skeleton Loading */}
+          {details == null ? (
+            <div className="w-full h-40 flex items-center justify-center">
+              <p className="text-gray-400">Select a user to view details</p>
+            </div>
+          ) : (
+            <div className="mt-6">
+              <h3 className="text-2xl font-bold">{details.name}</h3>
+              <p className="text-gray-400 mt-1">
+                Country: <span className="text-white">{details.country}</span>
+              </p>
+              <p className="text-gray-400 mt-2">
+                Total Coin: <span className="text-white">{details.coin}</span>
+              </p>
+
+              {/* Details Section */}
+              <div className="mt-6 border-t border-gray-700 pt-4">
+                <h4 className="text-lg font-semibold">Basic Details</h4>
+                <div className="mt-4 grid md:grid-cols-2 gap-4">
+                  <p className="text-gray-400">
+                    Email:{" "}
+                    <span className="text-blue-400">{details.email}</span>
+                  </p>
+                  <p className="text-gray-400">
+                    Phone No:{" "}
+                    <span className="text-blue-400">{details.phone}</span>
+                  </p>
+                  <p className="text-gray-400">
+                    Date of Birth:{" "}
+                    <span className="text-white">
+                      {new Date(details.dateOfBirth).toLocaleDateString()}
+                    </span>
+                  </p>
+                  <p className="text-gray-400">
+                    Created At:{" "}
+                    <span className="text-white">
+                      {new Date(details.createdAt).toLocaleDateString()}
+                    </span>
+                  </p>
+                </div>
+                <p className="text-gray-400 mt-4">
+                  Last Update:{" "}
+                  <span className="text-white">
+                    {new Date(details.updatedAt).toLocaleDateString()}
+                  </span>
+                </p>
+                <p className="text-gray-400 mt-4">
+                  Address:{" "}
+                  <span className="text-white">{details.address}</span>
+                </p>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+      </div>
     </div>
-  )
+  );
 }
 
-export default User
+export default User;

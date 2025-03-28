@@ -42,7 +42,7 @@ function KYCrequect() {
       <nav className="mt-5 flex flex-row justify-between items-center px-20">
         <p className="text-4xl">KYC Request</p>
         <div className="flex flex-row items-center justify-between bg-black px-5 py-3 w-1/2 rounded-full">
-          <p>
+          <p className="text-2xl">
             <IoReorderThree />
           </p>
           <input

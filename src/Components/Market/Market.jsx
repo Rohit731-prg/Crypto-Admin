@@ -55,7 +55,7 @@ function Market() {
       <nav className="mt-5 flex flex-row justify-between items-center px-20">
         <p className="text-4xl">Market</p>
         <div className="flex flex-row items-center justify-between bg-black px-5 py-3 w-1/2 rounded-full">
-            <p><IoReorderThree /></p>
+            <p className="text-2xl"><IoReorderThree /></p>
             <input 
             placeholder="Search Market"
             className="bg-transparent w-full mx-5 border-none outline-none"
