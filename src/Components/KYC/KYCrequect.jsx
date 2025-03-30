@@ -65,7 +65,7 @@ function KYCrequect() {
           <p className="text-2xl">Loading...</p>
         </div>
       ) : (
-        <div className="px-40 py-10">
+        <div className="mt-40 px-40">
           <div className="mt-20 px-10 py-5 bg-black rounded-lg max-h-[700px] overflow-y-auto">
             <p className="text-xl mb-10 inline-flex flex-row items-center gap-5 px-5 py-3 bg-[#616161] rounded-md">
               <span className="text-4xl text-red-400">

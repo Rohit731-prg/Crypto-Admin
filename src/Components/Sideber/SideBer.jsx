@@ -20,7 +20,7 @@ function SideBer() {
 
     switch(id) {
         case 1: {
-            navigate("/")
+            navigate("/dashboard")
             break;
         }
         case 2: {
@@ -36,7 +36,11 @@ function SideBer() {
           break;
         }
         case 5: {
-          navigate('/Transactions')
+          navigate('/transactions')
+          break;
+        }
+        case 6: {
+          navigate('/pendingTransactions')
           break;
         }
     }
@@ -72,12 +76,17 @@ function SideBer() {
             icon: <AiOutlineTransaction />,
             name: "Transactions",
             id: 5
+          },
+          {
+            icon: <AiOutlineTransaction />,
+            name: "Pending Transactions",
+            id: 6
           }
         ].map((item) => (
           <button
           key={item.id}
             onClick={() => handelChage(item.id)}
-            className={`text-white flex flex-row items-center gap-3 w-full px-5 py-2 my-5 ${
+            className={`text-white flex flex-row items-center gap-3 w-full px-5 py-3 my-5 ${
               isActive == item.id ? "bg-black" : null
             }`}
           >

@@ -59,7 +59,7 @@ function Transactions() {
       ) : (
         <div className="mt-40 px-40">
           <div className="mt-20 w-full bg-black px-20 py-10 rounded-lg">
-            <p className="text-[20px] mb-10 bg-gray-500 py-2 px-8 inline-block rounded-sm">All Transactions</p>
+            <p className="text-2xl mb-10 bg-[#616161] py-3 px-5 inline-block rounded-sm">All Transactions</p>
             <table className="w-full">
               <thead className="w-full">
                 <tr className="w-full flex flex-row justify-between bg-gray-500 py-2 px-5 rounded-t-lg mb-5">
@@ -81,7 +81,7 @@ function Transactions() {
                     <td className="text-xl w-1/5 text-center">{Transaction.type}</td>
                     <td className="text-xl w-1/5 text-center">{Transaction.buyer}</td>
                     <td className={`text-xl w-1/5 text-center ${Transaction.status ? 'text-green-500' : 'text-red-500'}`}>{Transaction.status ? "Completed" : "Pending"}</td>
-                    <td className="text-xl w-1/5 text-center">{Transaction.amount}</td>
+                    <td className="text-xl w-1/5 text-center">₹{Transaction.amount}</td>
                   </tr>
                 ))}
               </tbody>
