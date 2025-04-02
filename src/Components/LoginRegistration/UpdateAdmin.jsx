@@ -2,8 +2,11 @@ import React, { useContext, useState } from 'react'
 import Coin from '../../assets/coin.png';
 import { APIContext } from '../../store/APIContext';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
 
 function UpdateAdmin() {
+    const navigate = useNavigate();
     const { userDetails } = useContext(APIContext);
     const [isEmailApproved, setIsEmailApproved] =useState(false);
     const [email, setEmail] = useState('');
@@ -15,17 +18,17 @@ function UpdateAdmin() {
     const checkEmail = () => {
         console.log(userDetails.email, email);
         if(userDetails.email === email) {
-            alert('Email Approved');
+            toast.success('Email Approved');
             setIsEmailApproved(true);
         } else {
-            alert('Invalid Email');
+            toast.error('Invalid Email');
         }
     };
 
     const setNewPassword = async () => {
         if(passwords.newPassword === passwords.confirmPassword) {
             if(userDetails.password === passwords.newPassword) {
-                alert('New Password cannot be same as old password');
+                toast.error('New Password cannot be same as old password');
             } else {
                 const data = {
                     id: userDetails._id,
@@ -34,14 +37,20 @@ function UpdateAdmin() {
                     password: passwords.newPassword
                 }
                 const res = await axios.put('http://localhost:4000/admin/update', data)
-                console.log(res.data.status);
-                if(res.data.status === true) {
-                    alert('Password Updated Successfully');
+                console.log(res.data.success);
+                if(res.data.success === true) {
+                    toast.success('Password Updated Successfully');
+                    setTimeout(() => {
+                        navigate('/')
+                        
+                    }, 1500);
+                } else {
+                    toast.error('Internal Server Error');
+
                 }
-                alert('Internal Server Error');
             }
         } else {
-            alert('Passwords do not match');
+            toast.error('Passwords do not match');
         }
     }
 
@@ -94,6 +103,7 @@ function UpdateAdmin() {
                 </button>
             </div>
         )}
+        <Toaster />
     </div>
   )
 }

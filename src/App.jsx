@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import SideBer from './Components/Sideber/SideBer';
 import PendingTransaction from './Components/Transactions/PendingTransaction';
+import CreateAccount from './Components/LoginRegistration/CreateAccount';
 
 const Dashboard = lazy(() => import('./Components/Dashboard/Dashboard'));
 const Market = lazy(() => import('./Components/Market/Market'));
@@ -30,6 +31,10 @@ const route = createBrowserRouter([
   {
     path: '/updateAdmin/:id',
     element: <UpdateAdmin />
+  },
+  {
+    path: '/createAccount',
+    element: <CreateAccount />
   },
   {
     path: '/', // Routes with Sidebar
