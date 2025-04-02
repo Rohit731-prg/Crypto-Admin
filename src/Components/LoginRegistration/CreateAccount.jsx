@@ -5,18 +5,20 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function CreateAccount() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const [adminInputDetails, setAdminInputDetails] = useState({
     firstName: "",
     lastName: "",
     email: "",
     password: "",
     confirmPassword: "",
-    photo: null
+    photo: null,
   });
 
   const haandelChange = async (e) => {
     e.preventDefault();
+
+    console.log(adminInputDetails.photo);
 
     if (adminInputDetails.password === adminInputDetails.confirmPassword) {
       if (
@@ -24,22 +26,20 @@ function CreateAccount() {
         adminInputDetails.confirmPassword.length < 16
       ) {
         const formData = new FormData();
+        formData.append("name", `${adminInputDetails.firstName} ${adminInputDetails.lastName}`);
+        formData.append("email", adminInputDetails.email);
+        formData.append("password", adminInputDetails.password);
         formData.append("image", adminInputDetails.photo);
-        const data = {
-          name: adminInputDetails.firstName + " " + adminInputDetails.lastName,
-          email: adminInputDetails.email,
-          password: adminInputDetails.password,
-        };
         const res = await axios.post(
           "http://localhost:4000/admin/insert",
-          data
+          formData
         );
 
         if (res.data.success === true) {
-            toast.success("Account Created Successfully");
-            setTimeout(() => {
-              navigate("/");
-            }, 1500);
+          toast.success("Account Created Successfully");
+          setTimeout(() => {
+            navigate("/");
+          }, 1500);
         } else {
           toast.error("Internal Server Error");
         }
@@ -138,10 +138,15 @@ function CreateAccount() {
         <div>
           <p className="text-gray-300 mb-2 text-xl">Upload Admin Photo</p>
           <input
-            onChange={(e) => setAdminInputDetails({ ...adminInputDetails, photo: e.target.files[0] })}
+            onChange={(e) =>
+              setAdminInputDetails({
+                ...adminInputDetails,
+                photo: e.target.files[0],
+              })
+            }
             required
             type="file"
-            class="file:border text-white file:border-gray-300 file:bg-blue-500 file:text-white file:px-4 file:py-2 file:rounded-lg file:cursor-pointer file:hover:bg-blue-600"
+            className="file:border text-white file:border-gray-300 file:bg-blue-500 file:text-white file:px-4 file:py-2 file:rounded-lg file:cursor-pointer file:hover:bg-blue-600"
           />
         </div>
 

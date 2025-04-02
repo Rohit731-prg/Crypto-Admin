@@ -87,6 +87,7 @@ function User() {
               </div>
             ) : (
               <div className="mt-6">
+                <img src={details.image} alt="" />
                 <h3 className="text-2xl font-bold">{details.name}</h3>
                 <p className="text-gray-400 mt-1">
                   Country: <span className="text-white">{details.country}</span>

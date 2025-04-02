@@ -100,6 +100,7 @@ function KYCrequect() {
                     </p>
 
                     <div className="flex flex-wrap gap-x-10">
+                      <img src={user.image} alt="" />
                       {[
                         { title: "Home Address", value: user.address },
                         { title: "Country Of Residence", value: user.country },
