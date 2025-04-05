@@ -46,34 +46,35 @@ function KYCrequect() {
   };
 
   const downloadIdProof = (user) => {
+    console.log(user.file);
     try {
-      const base64Data = user.file; // Base64 string
-      const name = user.name.replace(/\s+/g, "_").toLowerCase() + ".pdf"; // Ensure filename format
+      // Extract base64 content
+      const base64String = user.file;
 
-      // Convert Base64 to binary
-      const byteCharacters = atob(base64Data);
-      const byteNumbers = new Uint8Array(byteCharacters.length);
-      for (let i = 0; i < byteCharacters.length; i++) {
-        byteNumbers[i] = byteCharacters.charCodeAt(i);
-      }
+      // Decode base64 string to binary data
+      const byteCharacters = atob(base64String.split(",")[1] || base64String);
+      const byteNumbers = Array.from(byteCharacters).map((char) =>
+        char.charCodeAt(0)
+      );
+      const byteArray = new Uint8Array(byteNumbers);
 
-      // Create Blob
-      const blob = new Blob([byteNumbers], { type: "application/pdf" }); // Adjust MIME type if it's DOCX
+      // Create a Blob and Object URL
+      const blob = new Blob([byteArray], { type: "application/pdf" });
       const url = URL.createObjectURL(blob);
 
-      // Create Download Link
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = name;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      // Create a temporary download link
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${user.name}_${user._id}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
 
-      // Free up memory
+      // Cleanup the URL object
       URL.revokeObjectURL(url);
     } catch (error) {
-      console.error("Error downloading file:", error);
-      toast.error("Failed to download file!");
+      console.error("Error downloading ID Proof:", error);
+      toast.error("Failed to download the ID proof.");
     }
   };
 
@@ -160,12 +161,14 @@ function KYCrequect() {
                         { title: "Phone Number", value: user.phone },
                         {
                           title: "Created At",
-                          value: new Date(user.createdAt).toLocaleDateString("en-GB", {
-                            day: "2-digit",
-                            month: "short",
-                            year: "numeric",
-                          })
-                          ,
+                          value: new Date(user.createdAt).toLocaleDateString(
+                            "en-GB",
+                            {
+                              day: "2-digit",
+                              month: "short",
+                              year: "numeric",
+                            }
+                          ),
                         },
                       ].map((item, index) => (
                         <div key={index} className="w-[30%]">
