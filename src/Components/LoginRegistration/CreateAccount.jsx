@@ -6,48 +6,55 @@ import { useNavigate } from "react-router-dom";
 
 function CreateAccount() {
   const navigate = useNavigate();
+  const [emails, setEmails] = useState({
+    email1: "example1@gmail.com",
+    email2: "example2@gmail.com",
+    email3: "example3@gmail.com",
+  });
   const [adminInputDetails, setAdminInputDetails] = useState({
     firstName: "",
     lastName: "",
     email: "",
     password: "",
     confirmPassword: "",
-    photo: null,
   });
+  const [adminPhoto, setAdminPhoto] = useState(null);
 
   const haandelChange = async (e) => {
-    e.preventDefault();
-
-    console.log(adminInputDetails.photo);
-
-    if (adminInputDetails.password === adminInputDetails.confirmPassword) {
-      if (
-        adminInputDetails.password.length > 8 &&
-        adminInputDetails.confirmPassword.length < 16
-      ) {
-        const formData = new FormData();
-        formData.append("name", `${adminInputDetails.firstName} ${adminInputDetails.lastName}`);
-        formData.append("email", adminInputDetails.email);
-        formData.append("password", adminInputDetails.password);
-        formData.append("image", adminInputDetails.photo);
-        const res = await axios.post(
-          "http://localhost:4000/admin/insert",
-          formData
-        );
-
-        if (res.data.success === true) {
-          toast.success("Account Created Successfully");
-          setTimeout(() => {
-            navigate("/");
-          }, 1500);
+    e.preventDefault()
+    if(adminInputDetails.email == emails.email1 || adminInputDetails.email == emails.email2 || adminInputDetails.email == emails.email3) {
+      if (adminInputDetails.password === adminInputDetails.confirmPassword) {
+        if (
+          adminInputDetails.password.length > 8 &&
+          adminInputDetails.confirmPassword.length < 16
+        ) {
+          const formData = {
+            name: `${adminInputDetails.firstName} ${adminInputDetails.lastName}`,
+            email: adminInputDetails.email,
+            password: adminInputDetails.password,
+            image: adminPhoto,
+          }
+          const res = await axios.post(
+            "http://localhost:4000/admin/insert",
+            formData
+          );
+  
+          if (res.data.success === true) {
+            toast.success("Account Created Successfully");
+            setTimeout(() => {
+              navigate("/");
+            }, 1500);
+          } else {
+            toast.error("Internal Server Error");
+          }
         } else {
-          toast.error("Internal Server Error");
+          toast.error("Password length should be more than 8 and less than 16");
         }
       } else {
-        toast.error("Password length should be more than 8 and less than 16");
+        toast.error("Passwords do not match");
       }
     } else {
-      toast.error("Passwords do not match");
+      toast.error("Email not registered with us");
     }
   };
 
@@ -138,12 +145,12 @@ function CreateAccount() {
         <div>
           <p className="text-gray-300 mb-2 text-xl">Upload Admin Photo</p>
           <input
-            onChange={(e) =>
-              setAdminInputDetails({
-                ...adminInputDetails,
-                photo: e.target.files[0],
-              })
-            }
+            accept="image/*"
+            onChange={(e) => {
+              const reader = new FileReader();
+              reader.onload = () => setAdminPhoto(reader.result);
+              reader.readAsDataURL(e.target.files[0]);
+            }}
             required
             type="file"
             className="file:border text-white file:border-gray-300 file:bg-blue-500 file:text-white file:px-4 file:py-2 file:rounded-lg file:cursor-pointer file:hover:bg-blue-600"

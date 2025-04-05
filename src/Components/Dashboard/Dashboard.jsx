@@ -86,16 +86,16 @@ function Dashboard() {
           ) : (
             <div className="w-full flex flex-col gap-3">
               {Transactions.map((transaction) => (
-                <div className="w-full flex flex-row justify-between px-5 items-center">
-                  <div className="flex flex-row items-center gap-3">
+                <div key={transaction._id} className="w-full flex flex-row justify-between px-5 items-center">
+                  <div className="flex flex-row items-center gap-3 w-1/4">
                     <img
                       src={transaction.type == "buy" ? buy : sell}
                       className="w-10 h-10 rounded-full"
                     />
-                    <p className="text-xl">CDC</p>
+                    <p className="text-xl">Gold Coin</p>
                   </div>
 
-                  <div className="flex flex-col items-end">
+                  <div className="flex flex-col items-end w-1/4">
                     <p className="text-xl text-white">
                       {new Date(transaction.createdAt).toLocaleTimeString(
                         "en-US",
@@ -110,15 +110,15 @@ function Dashboard() {
                     </p>
                   </div>
 
-                  <p>
+                  <p className="text-xl w-1/4 text-end">
                     <span 
                     className={transaction.type == 'buy' ? 'text-green-500 text-xl' : 'text-red-500 text-xl'}>
                       {transaction.type == 'buy' ? '+' : '-'}
                     </span>
-                    <span className="text-xl ml-2">{transaction.amount} CDC</span>
+                    <span className="text-xl ml-2">{transaction.amount} gold Coin</span>
                   </p>
 
-                  <p className={`${transaction.status ? 'text-green-500' : 'text-red-500'} text-xl`}>
+                  <p className={`${transaction.status ? 'text-green-500' : 'text-red-500'} text-xl w-1/4 text-end`}>
                     {transaction.status ? 'Completed' : 'Pending'}
                   </p>
                 </div>

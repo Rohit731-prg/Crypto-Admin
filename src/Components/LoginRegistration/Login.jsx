@@ -14,10 +14,11 @@ function Login() {
         password: ''
     });
 
+
     const { userDetails, setUserDetails } = useContext(APIContext);
 
     const checkAdmin = () => {
-       if(adminDetails.name === userDetails.name && adminDetails.password === userDetails.password) {
+       if(adminDetails.email === userDetails.email && adminDetails.password === userDetails.password) {
             toast.success('Login Successfully..!')
             setTimeout(() => {
                 navigate('/dashboard');
@@ -30,7 +31,6 @@ function Login() {
     const fetchData = async () => {
         try {
             const res = await axios.get('http://localhost:4000/admin/get');
-            console.log();
             if(res.data.success === true) {
                 console.log(res.data.data.length);
                 setAdminLength(res.data.data.length);
@@ -73,8 +73,8 @@ function Login() {
 
             <div className='flex flex-col gap-5 w-full items-center'>
                 <input 
-                value={adminDetails.name}
-                onChange={(e) => setAdminDetails({...adminDetails, name: e.target.value})}
+                value={adminDetails.email}
+                onChange={(e) => setAdminDetails({...adminDetails, email: e.target.value})}
                 placeholder='Enter Your Name'
                 className='w-2/3 px-5 py-2 rounded-md text-black text-xl'
                 type="text" />
