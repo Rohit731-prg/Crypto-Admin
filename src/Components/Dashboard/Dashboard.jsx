@@ -3,17 +3,12 @@ import { FaSearch } from "react-icons/fa";
 import { IoReorderThree } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import buy from "../../assets/buy.jpeg";
+import buy from "../../assets/buy.png";
 import sell from "../../assets/sell.png";
 
 function Dashboard() {
   const navigate = useNavigate();
   const [Transactions, setTransactions] = useState(null);
-
-  const imageType = {
-    buy: "",
-    sell: "",
-  };
 
   const fetchData = async () => {
     try {

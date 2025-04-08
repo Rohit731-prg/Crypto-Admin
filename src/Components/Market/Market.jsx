@@ -7,7 +7,12 @@ import 'react-circular-progressbar/dist/styles.css';
 import toast, { Toaster } from 'react-hot-toast';
 
 function Market() {
-  const percentage = 66;
+  const percentages = {
+    oneHour: 10,
+    sevenDays: 20,
+    oneMonth: 30,
+    all: 40
+  };
   const [currentValue, setCurrentValue] = useState(0);
   const [id, setId] = useState('');
   const [inputValue, setInputValue] = useState(0);
@@ -85,8 +90,8 @@ function Market() {
           <div className="border-b-2 border-white py-10 px-10 flex flex-row justify-between">
             <div className="w-[12%] flex flex-col items-center justify-center gap-3">
               <CircularProgressbar
-              value={percentage}
-              text={`${percentage}%`}
+              value={percentages.oneHour}
+              text={`${percentages.oneHour}%`}
               strokeWidth={5}
               styles={buildStyles({
                 textColor: "white",
@@ -98,8 +103,8 @@ function Market() {
             </div>
             <div className="w-[12%] flex flex-col items-center justify-center gap-3">
               <CircularProgressbar
-              value={percentage}
-              text={`${percentage}%`}
+              value={percentages.sevenDays}
+              text={`${percentages.sevenDays}%`}
               strokeWidth={5}
               styles={buildStyles({
                 textColor: "white",
@@ -111,8 +116,8 @@ function Market() {
             </div>
             <div className="w-[12%] flex flex-col items-center justify-center gap-3">
               <CircularProgressbar
-              value={percentage}
-              text={`${percentage}%`}
+              value={percentages.oneMonth}
+              text={`${percentages.oneMonth}%`}
               strokeWidth={5}
               styles={buildStyles({
                 textColor: "white",
@@ -124,8 +129,8 @@ function Market() {
             </div>
             <div className="w-[12%] flex flex-col items-center justify-center gap-3">
               <CircularProgressbar
-              value={percentage}
-              text={`${percentage}%`}
+              value={percentages.all}
+              text={`${percentages.all}%`}
               strokeWidth={5}
               styles={buildStyles({
                 textColor: "white",

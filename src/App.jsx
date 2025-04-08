@@ -4,8 +4,6 @@ import SideBer from './Components/Sideber/SideBer';
 import PendingTransaction from './Components/Transactions/PendingTransaction';
 import CreateAccount from './Components/LoginRegistration/CreateAccount';
 import Error from './Components/Error/Error';
-import TransactionTest from './Components/Testing/TransactionTest';
-import UsersTest from './Components/Testing/UsersTest';
 
 const Dashboard = lazy(() => import('./Components/Dashboard/Dashboard'));
 const Market = lazy(() => import('./Components/Market/Market'));
@@ -53,8 +51,6 @@ const route = createBrowserRouter([
       { path: '/users', element: <User /> },
       { path: '/transactions', element: <Transactions /> },
       { path: '/pendingTransactions', element: <PendingTransaction /> },
-      { path: '/transactionTesting', element: <TransactionTest /> },
-      { path: '/Usertest', element: <UsersTest /> },
     ],
   },
 ]);

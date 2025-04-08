@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { APIContext } from './APIContext';
 
 function ContextProvider({ children }) {
@@ -6,27 +6,18 @@ function ContextProvider({ children }) {
     const [isShow, setIsShow] = useState(false);
     const [userDetails, setUserDetails] = useState(null);
     
-    const [logInID, setLogInID] = useState(() => {
-        // get from localStorage on first render
-        const saved = localStorage.getItem("logInID");
-        return saved ? JSON.parse(saved) : null;
-    });
-
-    // Update localStorage whenever logInID changes
-    useEffect(() => {
-        if (logInID) {
-            localStorage.setItem("logInID", JSON.stringify(logInID));
-        } else {
-            localStorage.removeItem("logInID"); // optional: clean up when null
-        }
-    }, [logInID]);
+    const [adminDetails, setAdminDetails] = useState({});
+    const [isAdminCreate, setIsAdminCreate] = useState(false);
+    const [adminID, setAdminID] = useState(null);
 
     return (
         <APIContext.Provider value={{ 
             transactionDetails, setTransactionDetails,
             isShow, setIsShow,
             userDetails, setUserDetails,
-            logInID, setLogInID
+            adminDetails, setAdminDetails,
+            isAdminCreate, setIsAdminCreate,
+            adminID, setAdminID
         }}>
             {children}
         </APIContext.Provider>

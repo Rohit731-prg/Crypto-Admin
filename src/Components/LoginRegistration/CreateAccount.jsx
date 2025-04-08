@@ -6,11 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 function CreateAccount() {
   const navigate = useNavigate();
-  const [emails, setEmails] = useState({
-    email1: "example1@gmail.com",
-    email2: "example2@gmail.com",
-    email3: "example3@gmail.com",
-  });
+
   const [adminInputDetails, setAdminInputDetails] = useState({
     firstName: "",
     lastName: "",
@@ -21,40 +17,36 @@ function CreateAccount() {
   const [adminPhoto, setAdminPhoto] = useState(null);
 
   const haandelChange = async (e) => {
-    e.preventDefault()
-    if(adminInputDetails.email == emails.email1 || adminInputDetails.email == emails.email2 || adminInputDetails.email == emails.email3) {
-      if (adminInputDetails.password === adminInputDetails.confirmPassword) {
-        if (
-          adminInputDetails.password.length > 8 &&
-          adminInputDetails.confirmPassword.length < 16
-        ) {
-          const formData = {
-            name: `${adminInputDetails.firstName} ${adminInputDetails.lastName}`,
-            email: adminInputDetails.email,
-            password: adminInputDetails.password,
-            image: adminPhoto,
-          }
-          const res = await axios.post(
-            "http://localhost:4000/admin/insert",
-            formData
-          );
-  
-          if (res.data.success === true) {
-            toast.success("Account Created Successfully");
-            setTimeout(() => {
-              navigate("/");
-            }, 1500);
-          } else {
-            toast.error("Internal Server Error");
-          }
+    e.preventDefault();
+    if (adminInputDetails.password === adminInputDetails.confirmPassword) {
+      if (
+        adminInputDetails.password.length > 8 &&
+        adminInputDetails.confirmPassword.length < 16
+      ) {
+        const formData = {
+          name: `${adminInputDetails.firstName} ${adminInputDetails.lastName}`,
+          email: adminInputDetails.email,
+          password: adminInputDetails.password,
+          image: adminPhoto,
+        };
+        const res = await axios.post(
+          "http://localhost:4000/admin/insert",
+          formData
+        );
+
+        if (res.data.success === true) {
+          toast.success("Account Created Successfully");
+          setTimeout(() => {
+            navigate("/");
+          }, 1500);
         } else {
-          toast.error("Password length should be more than 8 and less than 16");
+          toast.error("Internal Server Error");
         }
       } else {
-        toast.error("Passwords do not match");
+        toast.error("Password length should be more than 8 and less than 16");
       }
     } else {
-      toast.error("Email not registered with us");
+      toast.error("Passwords do not match");
     }
   };
 
@@ -165,7 +157,13 @@ function CreateAccount() {
             CREATE ACCOUNT
           </button>
         </div>
+        <div>
+          <button 
+          onClick={() => navigate("/")}
+          className="text-white text-xl bg-violet-600 px-10 py-3 rounded-md font-semibold">Back</button>
+        </div>
       </form>
+
       <Toaster />
     </div>
   );
