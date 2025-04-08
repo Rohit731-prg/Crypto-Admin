@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { IoIosNotifications } from "react-icons/io";
 import { FaSearch } from "react-icons/fa";
 import { IoReorderThree } from "react-icons/io5";
 import axios from "axios";
 import loading from "../../assets/loading.json";
 import Lottie from "lottie-react";
+import { GoClockFill } from "react-icons/go";
+import { IoCheckmarkDoneCircleSharp } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
 function Transactions() {
+  const navigate = useNavigate();
   const [Transactions, setTransactions] = useState(null);
 
   const fetchData = async () => {
     try {
       const res = await axios.get("http://localhost:4000/transactions/get");
+      console.log(res.data.data);
       const updatedTransactions = res.data.data;
       console.log(updatedTransactions);
       setTransactions(updatedTransactions);
@@ -71,12 +75,14 @@ function Transactions() {
             <p className="text-2xl mb-10 bg-[#616161] py-3 px-5 inline-block rounded-sm">All Transactions</p>
             <table className="w-full">
               <thead className="w-full">
-                <tr className="w-full flex flex-row justify-between bg-gray-500 py-2 px-5 rounded-t-lg mb-5">
+                <tr className="w-full flex flex-row justify-between bg-gray-500 py-2 px-5 rounded-lg mb-5">
+                  <td className="text-[20px] font-semibold w-1/5 text-center">Photo</td>
                   <td className="text-[20px] font-semibold w-1/5 text-center">Date</td>
                   <td className="text-[20px] font-semibold w-1/5 text-center">Type</td>
                   <td className="text-[20px] font-semibold w-1/5 text-center">Name</td>
-                  <td className="text-[20px] font-semibold w-1/5 text-center">Value</td>
                   <td className="text-[20px] font-semibold w-1/5 text-center">Amount</td>
+                  <td className="text-[20px] font-semibold w-1/5 text-center">Coin</td>
+                  <td className="text-[20px] font-semibold w-1/5 text-center">Status</td>
                 </tr>
               </thead>
 
@@ -86,11 +92,26 @@ function Transactions() {
                     key={index}
                     className="w-full flex flex-row justify-between mb-3"
                   >
+                    <td className="text-xl w-1/5 flex items-center justify-center">
+                      <img 
+                      className="w-10 h-10 rounded-full object-cover"
+                      src={Transaction.buyer.image} alt="image" />
+                    </td>
                     <td className="text-xl w-1/5 text-center">{new Date(Transaction.createdAt).toLocaleDateString()}</td>
                     <td className="text-xl w-1/5 text-center">{Transaction.type}</td>
-                    <td className="text-xl w-1/5 text-center">{Transaction.buyer}</td>
-                    <td className={`text-xl w-1/5 text-center ${Transaction.status ? 'text-green-500' : 'text-red-500'}`}>{Transaction.status ? "Completed" : "Pending"}</td>
-                    <td className="text-xl w-1/5 text-center">₹{Transaction.amount}</td>
+                    <td className="text-xl w-1/5 text-center">{Transaction.buyer.name}</td>
+                    
+                    <td className="text-xl w-1/5 text-center">{Transaction.type == 'buy' ? `+${Transaction.amount}` : `-${Transaction.amount}`}</td>
+                    <td className="text-xl w-1/5 text-center">{Transaction.coin}</td>
+                    <td 
+                    className={`text-xl w-1/5 px-3 py-2 rounded-md font-semibold ${Transaction.status ? 'text-green-700 bg-green-100' : 'text-red-800 bg-red-100'}`}>
+                      {Transaction.status ? <p 
+                      className="flex flex-row items-center gap-2">
+                        <IoCheckmarkDoneCircleSharp />Completed</p> : <p
+                        className="flex flex-row items-center gap-2"
+                        ><GoClockFill />Pending
+                      </p>}
+                    </td>
                   </tr>
                 ))}
               </tbody>

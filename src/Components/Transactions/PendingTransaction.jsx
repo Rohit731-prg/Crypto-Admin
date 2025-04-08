@@ -8,8 +8,10 @@ import axios from "axios";
 import { APIContext } from "../../store/APIContext";
 import Details from "./Details";
 import toast, { Toaster } from 'react-hot-toast';
+import { useNavigate } from "react-router-dom";
 
 function PendingTransaction() {
+  const navigate = useNavigate();
   const { setTransactionDetails, isShow, setIsShow } = useContext(APIContext);
   
   const [pendingtransaction, setPendingTransaction] = useState(null);
@@ -17,6 +19,7 @@ function PendingTransaction() {
   const fetchData = async () => {
     try {
       const res = await axios.get("http://localhost:4000/transactions/get");
+      console.log(res.data.data);
       const updated = res.data.data;
       const filterData = updated.filter(
         (transaction) => transaction.status == false
@@ -135,7 +138,7 @@ function PendingTransaction() {
                         {Transaction.type}
                       </td>
                       <td className="text-xl w-1/5 text-center">
-                        {Transaction.buyer}
+                        {Transaction.buyer.name}
                       </td>
                       <td
                         className={`text-xl w-1/5 text-center ${
@@ -148,7 +151,7 @@ function PendingTransaction() {
                         ₹{Transaction.amount}
                       </td>
                       <td className="text-xl w-1/5 flex justify-center">
-                        <button 
+                        <button
                         onClick={() => details(Transaction)}
                         className="p-2 bg-gray-500 rounded-sm cursor-pointer">
                           <CgDetailsMore />

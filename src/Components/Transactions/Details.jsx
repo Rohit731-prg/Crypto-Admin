@@ -4,6 +4,7 @@ import { RxCross2 } from "react-icons/rx";
 import { IoCheckmarkDoneCircleSharp } from "react-icons/io5";
 import { APIContext } from "../../store/APIContext";
 import card from "../../assets/card.png";
+import toast, { Toaster } from 'react-hot-toast';
 
 function Details({ fetchData, toast }) {
   const { transactionDetails, isShow, setIsShow } = useContext(APIContext);
@@ -31,11 +32,21 @@ function Details({ fetchData, toast }) {
       );
       console.log(res.data.ststus);
       if (res.data.status == true) {
-        fetchData();
-        toast.success("Payment Successfull");
-        setIsShow(false);
+        console.log(transactionDetails.buyer._id, transactionDetails.type, transactionDetails.coin);
+        const updateCoin = await axios.put('http://localhost:4000/users/updateCoin', {
+          id: transactionDetails.buyer._id,
+          type: transactionDetails.type,
+          coin: transactionDetails.coin
+        })
+        if(updateCoin) {
+          fetchData();
+          toast.success("Payment Successfull");
+          setIsShow(false);
+        } else {
+          toast.error("Payment Failed");
+        }
       } else {
-        alert("Payment Failed");
+        toast.error("Payment Failed");
       }
     } catch (error) {
       console.log("Error from updatePayment : ", error);
@@ -97,7 +108,7 @@ function Details({ fetchData, toast }) {
             </div>
           </div>
           <p className="text-gray-400 mt-5 text-xl">Full Name</p>
-          <p className="text-white text-[24px]">{userDetails == null ? "Loading..." : userDetails.name}</p>
+          <p className="text-white text-[24px]">{transactionDetails.buyer.name}</p>
 
           <div className="w-full">
             
@@ -114,7 +125,7 @@ function Details({ fetchData, toast }) {
             </div>
           </div>
 
-          <p className="text-gray-400 text-xl">Current Holding Coins : <span className="text-white text-[24px]">{userDetails == null ? "Loading..." : userDetails.coin}</span></p>
+          <p className="text-gray-400 text-xl">Current Holding Coins : <span className="text-white text-[24px]">{transactionDetails.buyer.coin}</span></p>
 
           <div className="mt-8">
             <button
@@ -126,6 +137,7 @@ function Details({ fetchData, toast }) {
           </div>
         </div>
       </div>
+      <Toaster />
     </div>
   );
 }

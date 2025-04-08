@@ -7,8 +7,10 @@ import { MdErrorOutline } from "react-icons/md";
 import { GoPencil } from "react-icons/go";
 import { FaDownload } from "react-icons/fa6";
 import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 function KYCrequect() {
+  const navigate = useNavigate();
   const [users, setUsers] = useState([]);
 
   const [fileName, setFileName] = useState("Downloaded_File");

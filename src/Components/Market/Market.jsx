@@ -5,8 +5,10 @@ import axios from "axios";
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import toast, { Toaster } from 'react-hot-toast';
+import { useNavigate } from "react-router-dom";
 
 function Market() {
+  const navigate = useNavigate();
   const percentages = {
     oneHour: 10,
     sevenDays: 20,

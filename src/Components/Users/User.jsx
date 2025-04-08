@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { IoIosNotifications } from "react-icons/io";
 import { FaSearch } from "react-icons/fa";
 import { IoReorderThree } from "react-icons/io5";
 
 function User() {
+  const navigate = useNavigate();
   const [users, setUsers] = useState(null);
   const [details, setDetails] = useState(null);
 
@@ -42,7 +43,7 @@ function User() {
         </div>
         <button
           onClick={() => navigate("/")}
-          className="group flex items-center justify-start w-11 h-11 bg-red-600 rounded-full cursor-pointer relative overflow-hidden transition-all duration-200 shadow-lg hover:w-32  active:translate-x-1 active:translate-y-1"
+          className="group flex items-center justify-start w-11 h-11 bg-violet-600 rounded-full cursor-pointer relative overflow-hidden transition-all duration-200 shadow-lg hover:w-32  active:translate-x-1 active:translate-y-1"
         >
           <div className="flex items-center justify-center w-full transition-all duration-300 group-hover:justify-start group-hover:px-3">
             <svg className="w-4 h-4" viewBox="0 0 512 512" fill="white">
