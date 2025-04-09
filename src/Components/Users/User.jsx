@@ -67,13 +67,13 @@ function User() {
             <div className="mt-4 space-y-4">
               {users ? (
                 users.map((user, index) =>
-                  user.authorized ? (
+                  user.authorized == "Authorized" ? (
                     <button
                       key={index}
                       onClick={() => seeDetails(user)}
                       className="block w-full text-left p-4 rounded-lg hover:bg-gray-800 transition-all"
                     >
-                      <p className="text-lg font-medium">{user.name}</p>
+                      <p className="text-lg font-medium">{user.fullName}</p>
                       <p className="text-gray-400 text-sm">
                         Coin Hold:{" "}
                         <span className="text-white">{user.coin}</span>
@@ -100,7 +100,7 @@ function User() {
               </div>
             ) : (
               <div className="mt-6">
-                <img src={details.image} alt="" />
+                <img src={details.photo} className="w-full h-[300px] rounded-md object-cover" />
                 <h3 className="text-2xl font-bold">{details.name}</h3>
                 <p className="text-gray-400 mt-1">
                   Country: <span className="text-white">{details.country}</span>

@@ -23,7 +23,8 @@ function KYCrequect() {
   const fetchUsers = useCallback(async () => {
     try {
       const res = await axios.get("/users/get");
-      setUsers(res.data.data || []);
+      console.log(res.data.data);
+      setUsers(res.data.data);
       setLength(res.data.data.filter((user) => !user.authorized).length);
     } catch (error) {
       console.error("Error fetching users:", error);
@@ -39,12 +40,16 @@ function KYCrequect() {
   // Update user authentication
   const updateUser = async (id) => {
     try {
-      await axios.put("/users/updateAuthentication", { id });
+      await axios.put("/users/updateAuthentication", {
+        id: id,
+        authorized: 'Authorized',
+      });
       toast.success("User verified successfully!");
       fetchUsers();
     } catch (error) {
       console.error("Error updating user:", error);
     }
+    toast.success("User verified successfully!");
   };
 
   const downloadIdProof = (user) => {
@@ -134,21 +139,21 @@ function KYCrequect() {
               <span>PENDING INFORMATION</span>
             </p>
 
-            {users.filter((user) => !user.authorized).length === 0 ? (
+            {users.filter((user) => user.authorized !== "Authorized").length === 0 ? (
               <p className="text-gray-400">No pending KYC requests</p>
             ) : (
               users
-                .filter((user) => !user.authorized)
+                .filter((user) => user.authorized != "Authorized")
                 .map((user) => (
                   <div key={user._id} className="mb-10 border-b-2 border-white">
                     <img
-                      src={user.image}
+                      src={user.photo}
                       alt="User Image"
-                      className="w-48 h-48 object-cover rounded-sm"
+                      className="w-48 h-48 object-cover rounded-full"
                     />
                     <p className="text-xl text-gray-300">Full Name</p>
                     <p className="text-lg bg-white text-black p-3 rounded-md mt-2">
-                      {user.name}
+                      {user.fullName}
                     </p>
                     <p className="text-xl text-gray-300 mt-3">Date of Birth</p>
                     <p className="text-lg bg-white text-black p-3 rounded-md mt-2">

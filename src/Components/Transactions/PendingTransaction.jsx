@@ -104,6 +104,7 @@ function PendingTransaction() {
               <table className="w-full">
                 <thead className="w-full">
                   <tr className="w-full flex flex-row justify-between bg-gray-500 py-2 px-5 rounded-t-lg mb-5">
+                    <td className="text-[20px] font-semibold w-1/5 text-center">Photo</td>
                     <td className="text-[20px] font-semibold w-1/5 text-center">
                       Date
                     </td>
@@ -129,8 +130,13 @@ function PendingTransaction() {
                   {pendingtransaction.map((Transaction, index) => (
                     <tr
                       key={index}
-                      className="w-full flex flex-row justify-between mb-3 border-b-2 border-gray-500 py-2"
+                      className="w-full flex flex-row justify-between px-5 rounded-t-lg mb-5 items-center"
                     >
+                      <td className="text-xl w-1/5 flex justify-center">
+                        <img 
+                        className="w-20 rounded-full object-cover"
+                        src={Transaction.buyer.image} alt="image" />
+                      </td>
                       <td className="text-xl w-1/5 text-center">
                         {new Date(Transaction.createdAt).toLocaleDateString()}
                       </td>

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import buy from "../../assets/buy.png";
 import sell from "../../assets/sell.png";
+import Chart from '../Chart/Chart'
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -61,6 +62,8 @@ function Dashboard() {
       <div className="mt-20 px-40 w-full pb-20">
         <div className="mt-40 w-full bg-black px-20 py-10 rounded-lg">
           <p className="text-xl bg-gray-700 px-5 py-3 rounded-sm inline-block">Market Overview</p>
+
+          <Chart />
         </div>
 
         <div className="mt-20 w-full bg-black px-20 py-10 rounded-lg text-white">

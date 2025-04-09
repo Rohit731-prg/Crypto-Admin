@@ -90,7 +90,7 @@ function Transactions() {
                 {Transactions.map((Transaction, index) => (
                   <tr
                     key={index}
-                    className="w-full flex flex-row justify-between mb-3"
+                    className="w-full flex flex-row justify-between mb-3 items-center"
                   >
                     <td className="text-xl w-1/5 flex items-center justify-center">
                       <img 

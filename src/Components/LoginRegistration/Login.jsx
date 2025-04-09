@@ -19,41 +19,27 @@ function Login() {
         password: ''
     });
 
-    const fetchData = async () => {
+    const checkAdmin = async () => {
         try {
             const res = await axios.post('http://localhost:4000/admin/getAdminByEmailPassword', {
                 email: adminDetails.email,
                 password: adminDetails.password
             });
             const admin = res.data.data[0];
-            console.log(admin);
-            if (admin) {
+            console.log(admin)
+            if(admin.email == adminDetails.email && admin.password == adminDetails.password) {
+                setAdminID(admin._id);
                 setUserDetails(admin);
-                return true;
+                toast.success('Login Successful');
+                setTimeout(() => {
+                    navigate('/dashboard');
+                }, 2000);
             } else {
-                return false;
+                toast.error('Invalid Credentials');
             }
         } catch (error) {
             console.error("Login Error:", error);
             return false;
-        }
-    };
-
-    const checkAdmin = async () => {
-        if (!adminDetails.email || !adminDetails.password) {
-            toast.error('Please fill in all fields');
-            return;
-        }
-
-        const isFetched = await fetchData();
-        if (isFetched && adminDetails.email === userDetails?.email && adminDetails.password === userDetails?.password) {
-            setAdminID(userDetails._id);
-            toast.success('Login Successfully!');
-            setTimeout(() => {
-                navigate('/dashboard');
-            }, 2000);
-        } else {
-            toast.error('Invalid Credentials');
         }
     };
 
