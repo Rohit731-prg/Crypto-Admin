@@ -74,7 +74,7 @@ function SideBer() {
   }, [location]);
 
   return (
-    <div className="w-1/5 h-screen bg-[#212121] py-20 flex flex-col items-center text-white">
+    <div className="w-1/5 h-auto bg-[#212121] py-20 flex flex-col items-center text-white">
       <img
         src={details == null ? user : details.image}
         alt="User Image"

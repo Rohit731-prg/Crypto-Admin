@@ -25,7 +25,7 @@ function KYCrequect() {
       const res = await axios.get("/users/get");
       console.log(res.data.data);
       setUsers(res.data.data);
-      setLength(res.data.data.filter((user) => !user.authorized).length);
+      setLength(res.data.data.filter((user) => user.authorized != "Authorized").length);
     } catch (error) {
       console.error("Error fetching users:", error);
     } finally {
@@ -49,7 +49,6 @@ function KYCrequect() {
     } catch (error) {
       console.error("Error updating user:", error);
     }
-    toast.success("User verified successfully!");
   };
 
   const downloadIdProof = (user) => {
@@ -111,7 +110,7 @@ function KYCrequect() {
         </p>
         <button
           onClick={() => navigate("/")}
-          className="group flex items-center justify-start w-11 h-11 bg-red-600 rounded-full cursor-pointer relative overflow-hidden transition-all duration-200 shadow-lg hover:w-32  active:translate-x-1 active:translate-y-1"
+          className="group flex items-center justify-start w-11 h-11 bg-violet-600 rounded-full cursor-pointer relative overflow-hidden transition-all duration-200 shadow-lg hover:w-32  active:translate-x-1 active:translate-y-1"
         >
           <div className="flex items-center justify-center w-full transition-all duration-300 group-hover:justify-start group-hover:px-3">
             <svg className="w-4 h-4" viewBox="0 0 512 512" fill="white">
@@ -149,7 +148,7 @@ function KYCrequect() {
                     <img
                       src={user.photo}
                       alt="User Image"
-                      className="w-48 h-48 object-cover rounded-full"
+                      className="w-48 h-48 object-cover rounded-full mb-10"
                     />
                     <p className="text-xl text-gray-300">Full Name</p>
                     <p className="text-lg bg-white text-black p-3 rounded-md mt-2">

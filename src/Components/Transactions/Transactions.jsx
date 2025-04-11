@@ -95,11 +95,11 @@ function Transactions() {
                     <td className="text-xl w-1/5 flex items-center justify-center">
                       <img 
                       className="w-10 h-10 rounded-full object-cover"
-                      src={Transaction.buyer.image} alt="image" />
+                      src={Transaction.buyer.photo} alt="image" />
                     </td>
                     <td className="text-xl w-1/5 text-center">{new Date(Transaction.createdAt).toLocaleDateString()}</td>
                     <td className="text-xl w-1/5 text-center">{Transaction.type}</td>
-                    <td className="text-xl w-1/5 text-center">{Transaction.buyer.name}</td>
+                    <td className="text-xl w-1/5 text-center">{Transaction.buyer.fullName}</td>
                     
                     <td className="text-xl w-1/5 text-center">{Transaction.type == 'buy' ? `+${Transaction.amount}` : `-${Transaction.amount}`}</td>
                     <td className="text-xl w-1/5 text-center">{Transaction.coin}</td>

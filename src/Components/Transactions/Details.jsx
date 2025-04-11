@@ -69,7 +69,7 @@ function Details({ fetchData, toast }) {
 
       <div className="flex flex-row gap-5 p-10 bg-gray-700">
         <img
-          className="w-1/3 h-full object-cover"
+          className="w-1/3 h-[700px] object-cover"
           src={transactionDetails.image}
           alt=""
         />
@@ -108,7 +108,7 @@ function Details({ fetchData, toast }) {
             </div>
           </div>
           <p className="text-gray-400 mt-5 text-xl">Full Name</p>
-          <p className="text-white text-[24px]">{transactionDetails.buyer.name}</p>
+          <p className="text-white text-[24px]">{transactionDetails.buyer.fullName}</p>
 
           <div className="w-full">
             

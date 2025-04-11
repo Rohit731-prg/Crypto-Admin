@@ -6,15 +6,16 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from "react-router-dom";
+import { RiRecycleFill } from "react-icons/ri";
 
 function Market() {
   const navigate = useNavigate();
-  const percentages = {
-    oneHour: 10,
-    sevenDays: 20,
-    oneMonth: 30,
-    all: 40
-  };
+  const [percentages, setPercentages] = useState({
+    hour: 0,
+    week: 0,
+    month: 0,
+    all: 0
+  });
   const [currentValue, setCurrentValue] = useState(0);
   const [id, setId] = useState('');
   const [inputValue, setInputValue] = useState(0);
@@ -22,18 +23,50 @@ function Market() {
   const getData = async () => {
     try {
       const res = await axios.get('/coins/get');
-      console.log(res.data);
       
-      const updatedPrice = res.data.data[0].price;
-      const updatedId = res.data.data[0]._id;
-
+      const coin = res.data.data[0];
+      const updatedPrice = coin.price;
+      const updatedId = coin._id;
+      const priceList = coin.list;
+  
       setId(updatedId);
       setCurrentValue(updatedPrice);
-    
+  
+      const totalLength = priceList.length;
+  
+      const updatedPricePersentageAll = Math.round(
+        ((priceList[totalLength - 1].price - priceList[0].price) * 100) / priceList[0].price
+      );
+  
+      const latestDate = new Date(priceList[totalLength - 1].date);
+      const oneHourAgo = new Date(latestDate.getTime() - 60 * 60 * 1000);
+      const oneWeekAgo = new Date(latestDate.getTime() - 7 * 24 * 60 * 60 * 1000);
+      const oneMonthAgo = new Date(latestDate.getTime() - 30 * 24 * 60 * 60 * 1000);
+  
+      const getPercentageChange = (fromDate) => {
+        const filtered = priceList.filter(p => new Date(p.date) >= fromDate);
+        if (filtered.length < 2) return 0;
+        const first = filtered[0].price;
+        const last = filtered[filtered.length - 1].price;
+        return Math.round(((last - first) * 100) / first);
+      }
+  
+      const updatedPricePersentageHour = getPercentageChange(oneHourAgo);
+      const updatedPricePersentageWeek = getPercentageChange(oneWeekAgo);
+      const updatedPricePersentageMonth = getPercentageChange(oneMonthAgo);
+  
+      setPercentages({
+        all: updatedPricePersentageAll,
+        hour: updatedPricePersentageHour,
+        week: updatedPricePersentageWeek,
+        month: updatedPricePersentageMonth
+      });
+  
     } catch (error) {
       console.log(error);
     }
   }
+  
 
   const updateValue = async (e) => {
     e.preventDefault();
@@ -92,42 +125,42 @@ function Market() {
           <div className="border-b-2 border-white py-10 px-10 flex flex-row justify-between">
             <div className="w-[12%] flex flex-col items-center justify-center gap-3">
               <CircularProgressbar
-              value={percentages.oneHour}
-              text={`${percentages.oneHour}%`}
+              value={percentages.hour}
+              text={`${percentages.hour}%`}
               strokeWidth={5}
               styles={buildStyles({
-                textColor: "white",
+                textColor: `${percentages.hour > 0 ? '#28db00' : '#e30000'}`,
                 pathColor: "#7c3aed",
                 trailColor: ""
               })}
               />
-              <p>1 Hour</p>
+              <p>Hour</p>
             </div>
             <div className="w-[12%] flex flex-col items-center justify-center gap-3">
               <CircularProgressbar
-              value={percentages.sevenDays}
-              text={`${percentages.sevenDays}%`}
+              value={percentages.week}
+              text={`${percentages.week}%`}
               strokeWidth={5}
               styles={buildStyles({
-                textColor: "white",
+                textColor: `${percentages.week > 0 ? '#28db00' : '#e30000'}`,
                 pathColor: "#7c3aed ",
                 trailColor: ""
               })}
               />
-              <p>7 Days</p>
+              <p>Week</p>
             </div>
             <div className="w-[12%] flex flex-col items-center justify-center gap-3">
               <CircularProgressbar
-              value={percentages.oneMonth}
-              text={`${percentages.oneMonth}%`}
+              value={percentages.month}
+              text={`${percentages.month}%`}
               strokeWidth={5}
               styles={buildStyles({
-                textColor: "white",
+                textColor: `${percentages.month > 0 ? '#28db00' : '#e30000'}`,
                 pathColor: "#7c3aed ",
                 trailColor: ""
               })}
               />
-              <p>1 Month</p>
+              <p>Month</p>
             </div>
             <div className="w-[12%] flex flex-col items-center justify-center gap-3">
               <CircularProgressbar
@@ -135,12 +168,12 @@ function Market() {
               text={`${percentages.all}%`}
               strokeWidth={5}
               styles={buildStyles({
-                textColor: "white",
+                textColor: `${percentages.all > 0 ? '#28db00' : '#e30000'}`,
                 pathColor: "#7c3aed ",
                 trailColor: ""
               })}
               />
-              <p>All</p>
+              <p>Total Profit</p>
             </div>
           </div>
 
@@ -155,10 +188,11 @@ function Market() {
               className="w-1/3 py-2 my-5 rounded-full px-5 text-black font-medium"
               type="text" />
 
-              <div className="">
+              <div className="mt-5">
                 <button 
                 type="submit"
-                className="bg-violet-600 px-10 py-2 rounded-full">
+                className="bg-violet-600 text-xl font-semibold px-10 py-2 rounded-full flex flex-row items-center gap-3">
+                  <RiRecycleFill />
                   update coin value
                 </button>
               </div>

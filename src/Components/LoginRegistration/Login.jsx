@@ -7,6 +7,8 @@ import toast, { Toaster } from 'react-hot-toast';
 
 function Login() {
     const navigate = useNavigate();
+    const { setIsAdminCreate } = useContext(APIContext);
+
     const {
         isAdminCreate,
         setAdminID,
@@ -30,6 +32,8 @@ function Login() {
             if(admin.email == adminDetails.email && admin.password == adminDetails.password) {
                 setAdminID(admin._id);
                 setUserDetails(admin);
+                setIsAdminCreate(false);
+                
                 toast.success('Login Successful');
                 setTimeout(() => {
                     navigate('/dashboard');

@@ -6,6 +6,7 @@ import axios from "axios";
 import buy from "../../assets/buy.png";
 import sell from "../../assets/sell.png";
 import Chart from '../Chart/Chart'
+import toast, { Toaster } from 'react-hot-toast';
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ function Dashboard() {
     fetchData();
   }, []);
   return (
-    <div className="w-full text-white h-screen bg-gradient-to-b from-[#151515] to-[#1a1a2e]">
+    <div className="w-full text-white h-auto bg-gradient-to-b from-[#151515] to-[#1a1a2e]">
       <nav className="mt-5 flex flex-row justify-between items-center px-20">
         <p className="text-4xl">Dashboard</p>
         <div className="flex flex-row items-center justify-between bg-black px-5 py-3 w-1/2 rounded-full">
@@ -63,7 +64,7 @@ function Dashboard() {
         <div className="mt-40 w-full bg-black px-20 py-10 rounded-lg">
           <p className="text-xl bg-gray-700 px-5 py-3 rounded-sm inline-block">Market Overview</p>
 
-          <Chart />
+          <Chart toast={toast} />
         </div>
 
         <div className="mt-20 w-full bg-black px-20 py-10 rounded-lg text-white">
@@ -125,6 +126,7 @@ function Dashboard() {
           )}
         </div>
       </div>
+      <Toaster />
     </div>
   );
 }

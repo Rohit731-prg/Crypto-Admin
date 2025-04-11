@@ -134,8 +134,8 @@ function PendingTransaction() {
                     >
                       <td className="text-xl w-1/5 flex justify-center">
                         <img 
-                        className="w-20 rounded-full object-cover"
-                        src={Transaction.buyer.image} alt="image" />
+                        className="w-20 h-20 rounded-full object-cover"
+                        src={Transaction.buyer.photo} alt="image" />
                       </td>
                       <td className="text-xl w-1/5 text-center">
                         {new Date(Transaction.createdAt).toLocaleDateString()}
@@ -144,7 +144,7 @@ function PendingTransaction() {
                         {Transaction.type}
                       </td>
                       <td className="text-xl w-1/5 text-center">
-                        {Transaction.buyer.name}
+                        {Transaction.buyer.fullName}
                       </td>
                       <td
                         className={`text-xl w-1/5 text-center ${
