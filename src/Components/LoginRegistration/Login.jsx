@@ -21,31 +21,62 @@ function Login() {
         password: ''
     });
 
-    const checkAdmin = async () => {
-        try {
-            const res = await axios.post('http://localhost:4000/admin/getAdminByEmailPassword', {
-                email: adminDetails.email,
-                password: adminDetails.password
-            });
-            const admin = res.data.data[0];
-            console.log(admin)
-            if(admin.email == adminDetails.email && admin.password == adminDetails.password) {
-                setAdminID(admin._id);
-                setUserDetails(admin);
-                setIsAdminCreate(false);
+    // const checkAdmin = async () => {
+        
+    //     try {
+    //         const res = await axios.post('http://localhost:4000/admin/getAdminByEmailPassword', {
+    //             email: adminDetails.email,
+    //             password: adminDetails.password
+    //         });
+    //         const admin = res.data.data[0];
+    //         console.log(admin)
+    //         if(admin.email == adminDetails.email && admin.password == adminDetails.password) {
+    //             setAdminID(admin._id);
+    //             setUserDetails(admin);
+    //             setIsAdminCreate(false);
                 
-                toast.success('Login Successful');
-                setTimeout(() => {
-                    navigate('/dashboard');
-                }, 2000);
+    //             toast.success('Login Successful');
+    //             setTimeout(() => {
+    //                 navigate('/dashboard');
+    //             }, 2000);
+    //         } else {
+    //             toast.error('Invalid Credentials');
+    //         }
+    //     } catch (error) {
+    //         console.error("Login Error:", error);
+    //         return false;
+    //     }
+    // };
+
+    const checkAdmin = async () => {
+        const fetchPromise = axios.post('http://localhost:4000/admin/getAdminByEmailPassword', {
+          email: adminDetails.email,
+          password: adminDetails.password
+        });
+      
+        toast.promise(fetchPromise, {
+          loading: 'Checking admin...',
+          success: (res) => {
+            const admin = res.data.data[0];
+      
+            if (admin.email === adminDetails.email && admin.password === adminDetails.password) {
+              setAdminID(admin._id);
+              setUserDetails(admin);
+              setIsAdminCreate(false);
+      
+              setTimeout(() => {
+                navigate('/dashboard');
+              }, 2000);
+      
+              return 'Login Successful';
             } else {
-                toast.error('Invalid Credentials');
+              throw new Error('Invalid Credentials');
             }
-        } catch (error) {
-            console.error("Login Error:", error);
-            return false;
-        }
-    };
+          },
+          error: (err) => err.message || 'Login Failed!',
+        });
+      };
+      
 
     const checkAdminCreate = () => {
         if (isAdminCreate) {

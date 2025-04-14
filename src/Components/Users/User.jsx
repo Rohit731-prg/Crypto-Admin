@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FaSearch } from "react-icons/fa";
 import { IoReorderThree } from "react-icons/io5";
+import loading from "../../assets/loading.json";
+import Lottie from "lottie-react";
+import { FaDownload } from "react-icons/fa";
 
 function User() {
   const navigate = useNavigate();
@@ -22,6 +25,15 @@ function User() {
   const seeDetails = (details) => {
     setDetails(details);
   };
+
+  const downloadPDF = async (file) => {
+    try {
+      
+    } catch (error) {
+      
+    }
+
+  }
 
   useEffect(() => {
     fetchUsers();
@@ -56,100 +68,126 @@ function User() {
         </button>
       </nav>
 
-      <div className="px-40">
-        {/* Main Content */}
-        <div className="mt-40 grid md:grid-cols-3 gap-8">
-          {/* Users List */}
-          <div className="bg-gray-950 p-6 rounded-xl shadow-md">
-            <h2 className="text-xl font-semibold bg-gray-800 px-4 py-2 inline-block rounded-md">
-              Users
-            </h2>
-            <div className="mt-4 space-y-4">
-              {users ? (
-                users.map((user, index) =>
-                  user.authorized == "Authorized" ? (
-                    <button
-                      key={index}
-                      onClick={() => seeDetails(user)}
-                      className="block w-full text-left p-4 rounded-lg hover:bg-gray-800 transition-all"
-                    >
-                      <p className="text-lg font-medium">{user.fullName}</p>
-                      <p className="text-gray-400 text-sm">
-                        Coin Hold:{" "}
-                        <span className="text-white">{user.coin}</span>
-                      </p>
-                    </button>
-                  ) : null
-                )
+      {users == null ? (
+        <div className="w-full h-screen flex justify-center items-center">
+          <div className="flex flex-row items-center">
+            <div className="w-20 h-20 mr-4">
+              <Lottie animationData={loading} loop />
+            </div>
+            <p className="text-3xl font-semibold">loading...</p>
+          </div>
+        </div>
+      ) : (
+        <div className="px-40">
+          {/* Main Content */}
+          <div className="mt-36 grid md:grid-cols-3 gap-8">
+            {/* Users List */}
+            <div className="bg-gray-950 p-6 rounded-xl shadow-md">
+              <h2 className="text-xl font-semibold bg-gray-800 px-4 py-2 inline-block rounded-md">
+                Users
+              </h2>
+              <div className="mt-4 max-h-96 overflow-y-auto space-y-4 pr-2">
+                {users ? (
+                  users.map((user, index) =>
+                    user.authorized === "Authorized" ? (
+                      <button
+                        key={index}
+                        onClick={() => seeDetails(user)}
+                        className="block w-full text-left p-4 rounded-lg hover:bg-gray-800 transition-all"
+                      >
+                        <p className="text-lg font-medium">{user.fullName}</p>
+                        <p className="text-gray-400 text-sm">
+                          Coin Hold:{" "}
+                          <span className="text-white ml-1">{user.coin}</span>
+                        </p>
+                      </button>
+                    ) : null
+                  )
+                ) : (
+                  <p className="text-gray-400">Loading users...</p>
+                )}
+              </div>
+            </div>
+
+            {/* User Details */}
+            <div className="col-span-2 bg-gray-950 p-6 rounded-xl shadow-md">
+              <h2 className="text-xl font-semibold bg-gray-800 px-4 py-2 inline-block rounded-md">
+                User Details
+              </h2>
+
+              {/* Skeleton Loading */}
+              {details == null ? (
+                <div className="w-full h-40 flex items-center justify-center">
+                  <p className="text-gray-400">Select a user to view details</p>
+                </div>
               ) : (
-                <p className="text-gray-400">Loading users...</p>
+                <div className="mt-6">
+                  <img
+                    src={details.photo}
+                    className="w-1/2 h-[300px] rounded-md object-cover"
+                  />
+                  <h3 className="text-2xl font-bold">{details.name}</h3>
+                  <p className="text-gray-400 mt-1">
+                    Country:{" "}
+                    <span className="text-white">{details.country}</span>
+                  </p>
+                  <p className="text-gray-400 mt-2">
+                    Total Coin:{" "}
+                    <span className="text-white">{details.coin}</span>
+                  </p>
+
+                  {/* Details Section */}
+                  <div className="mt-6 border-t border-gray-700 pt-4">
+                    <h4 className="text-lg font-semibold">Basic Details</h4>
+                    <div className="mt-4 grid md:grid-cols-2 gap-4">
+                      <p className="text-gray-400">
+                        Email:{" "}
+                        <span className="text-blue-400">{details.email}</span>
+                      </p>
+                      <p className="text-gray-400">
+                        Phone No:{" "}
+                        <span className="text-blue-400">{details.phone}</span>
+                      </p>
+                      <p className="text-gray-400">
+                        Date of Birth:{" "}
+                        <span className="text-white">
+                          {new Date(details.dateOfBirth).toLocaleDateString()}
+                        </span>
+                      </p>
+                      <p className="text-gray-400">
+                        Created At:{" "}
+                        <span className="text-white">
+                          {new Date(details.createdAt).toLocaleDateString()}
+                        </span>
+                      </p>
+                      
+                    </div>
+                    <p className="text-gray-400 mt-4">
+                      Last Update:{" "}
+                      <span className="text-white">
+                        {new Date(details.updatedAt).toLocaleDateString()}
+                      </span>
+                    </p>
+                    <p className="text-gray-400 mt-4">
+                      Address:{" "}
+                      <span className="text-white">{details.address}</span>
+                    </p>
+
+                    <div className="w-full flex justify-end px-20">
+                    <button 
+                    onClick={() => downloadPDF(details.file)}
+                    className="text-white flex flex-row items-center gap-3 px-20 py-3 bg-violet-600 rounded-full">
+                      <span><FaDownload /></span>
+                      <span>Download ID Proof</span>
+                    </button>
+                    </div>
+                  </div>
+                </div>
               )}
             </div>
           </div>
-
-          {/* User Details */}
-          <div className="col-span-2 bg-gray-950 p-6 rounded-xl shadow-md">
-            <h2 className="text-xl font-semibold bg-gray-800 px-4 py-2 inline-block rounded-md">
-              User Details
-            </h2>
-
-            {/* Skeleton Loading */}
-            {details == null ? (
-              <div className="w-full h-40 flex items-center justify-center">
-                <p className="text-gray-400">Select a user to view details</p>
-              </div>
-            ) : (
-              <div className="mt-6">
-                <img src={details.photo} className="w-full h-[300px] rounded-md object-cover" />
-                <h3 className="text-2xl font-bold">{details.name}</h3>
-                <p className="text-gray-400 mt-1">
-                  Country: <span className="text-white">{details.country}</span>
-                </p>
-                <p className="text-gray-400 mt-2">
-                  Total Coin: <span className="text-white">{details.coin}</span>
-                </p>
-
-                {/* Details Section */}
-                <div className="mt-6 border-t border-gray-700 pt-4">
-                  <h4 className="text-lg font-semibold">Basic Details</h4>
-                  <div className="mt-4 grid md:grid-cols-2 gap-4">
-                    <p className="text-gray-400">
-                      Email:{" "}
-                      <span className="text-blue-400">{details.email}</span>
-                    </p>
-                    <p className="text-gray-400">
-                      Phone No:{" "}
-                      <span className="text-blue-400">{details.phone}</span>
-                    </p>
-                    <p className="text-gray-400">
-                      Date of Birth:{" "}
-                      <span className="text-white">
-                        {new Date(details.dateOfBirth).toLocaleDateString()}
-                      </span>
-                    </p>
-                    <p className="text-gray-400">
-                      Created At:{" "}
-                      <span className="text-white">
-                        {new Date(details.createdAt).toLocaleDateString()}
-                      </span>
-                    </p>
-                  </div>
-                  <p className="text-gray-400 mt-4">
-                    Last Update:{" "}
-                    <span className="text-white">
-                      {new Date(details.updatedAt).toLocaleDateString()}
-                    </span>
-                  </p>
-                  <p className="text-gray-400 mt-4">
-                    Address:{" "}
-                    <span className="text-white">{details.address}</span>
-                  </p>
-                </div>
-              </div>
-            )}
-          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

@@ -62,11 +62,11 @@ function Transactions() {
 
       {Transactions == null || Transactions.length == 0 ? (
         <div className="w-full h-screen flex justify-center items-center">
-          <div className="flex flex-row justify-center items-center">
-            <div className="w-40">
+          <div className="flex flex-row justify-center items-center gap-5">
+            <div className="w-20">
               <Lottie animationData={loading} loop={true} />
             </div>
-            <h1 className="text-3xl">Loading...</h1>
+            <h1 className="text-3xl font-semibold">Loading...</h1>
           </div>
         </div>
       ) : (

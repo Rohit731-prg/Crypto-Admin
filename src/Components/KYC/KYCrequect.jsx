@@ -8,13 +8,15 @@ import { GoPencil } from "react-icons/go";
 import { FaDownload } from "react-icons/fa6";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import Loading from '../../assets/loading.json';
+import Lottie from "lottie-react";
 
 function KYCrequect() {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
 
-  const [fileName, setFileName] = useState("Downloaded_File");
-  const [fileUrl, setFileUrl] = useState(null);
+  // const [fileName, setFileName] = useState("Downloaded_File");
+  // const [fileUrl, setFileUrl] = useState(null);
 
   const [loading, setLoading] = useState(true);
   const [length, setLength] = useState(0);
@@ -126,6 +128,9 @@ function KYCrequect() {
       {/* Loading State */}
       {loading ? (
         <div className="w-full h-full flex items-center justify-center">
+          <div>
+            <Lottie animationData={Loading} loop={true} className="w-20" />
+          </div>
           <p className="text-2xl">Loading...</p>
         </div>
       ) : (
