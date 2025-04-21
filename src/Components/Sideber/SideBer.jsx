@@ -35,7 +35,7 @@ function SideBer() {
         break;
       }
       case 4: {
-        navigate("/users");
+        navigate("/userDetails");
         break;
       }
       case 5: {
@@ -119,7 +119,7 @@ function SideBer() {
           <button
             key={item.id}
             onClick={() => handelChage(item.id)}
-            className={`text-white flex flex-row items-center gap-3 w-full px-5 py-3 my-5 ${
+            className={`text-white flex flex-row items-center gap-3 w-full px-5 py-3 my-5 rounded-md ${
               isActive == item.id ? "bg-black" : null
             }`}
           >

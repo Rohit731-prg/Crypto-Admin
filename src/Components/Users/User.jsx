@@ -26,11 +26,30 @@ function User() {
     setDetails(details);
   };
 
-  const downloadPDF = async (file) => {
+  const downloadPDF = async (user) => {
     try {
-      
+      const base64String = user.file;
+
+      // Decode base64 string to binary data
+      const byteCharacters = atob(base64String.split(",")[1] || base64String);
+      const byteNumbers = Array.from(byteCharacters).map((char) =>
+        char.charCodeAt(0)
+      );
+      const byteArray = new Uint8Array(byteNumbers);
+
+      const blob = new Blob([byteArray], { type: "application/pdf" });
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${user.username}_${user._id}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+
+      URL.revokeObjectURL(url);
     } catch (error) {
-      
+      console.log("Error from downloadPDF : ", error);
     }
 
   }
@@ -175,7 +194,7 @@ function User() {
 
                     <div className="w-full flex justify-end px-20">
                     <button 
-                    onClick={() => downloadPDF(details.file)}
+                    onClick={() => downloadPDF(details)}
                     className="text-white flex flex-row items-center gap-3 px-20 py-3 bg-violet-600 rounded-full">
                       <span><FaDownload /></span>
                       <span>Download ID Proof</span>

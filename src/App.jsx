@@ -1,25 +1,23 @@
-import React, { Suspense, lazy } from 'react';
+import React from 'react';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
+
 import SideBer from './Components/Sideber/SideBer';
 import PendingTransaction from './Components/Transactions/PendingTransaction';
 import CreateAccount from './Components/LoginRegistration/CreateAccount';
 import Error from './Components/Error/Error';
+import Dashboard from './Components/Dashboard/Dashboard';
+import Market from './Components/Market/Market';
+import KYCrequect from './Components/KYC/KYCrequect';
+import UserDetails from './Components/Users/User';
+import Transactions from './Components/Transactions/Transactions';
+import Login from './Components/LoginRegistration/Login';
+import UpdateAdmin from './Components/LoginRegistration/UpdateAdmin';
 
-const Dashboard = lazy(() => import('./Components/Dashboard/Dashboard'));
-const Market = lazy(() => import('./Components/Market/Market'));
-const KYCrequect = lazy(() => import('./Components/KYC/KYCrequect'));
-const User = lazy(() => import('./Components/Users/User'));
-const Transactions = lazy(() => import('./Components/Transactions/Transactions'));
-const Login = lazy(() => import('./Components/LoginRegistration/Login'));
-const UpdateAdmin = lazy(() => import('./Components/LoginRegistration/UpdateAdmin'));
-
-// Layout Component with Sidebar (used only for authenticated routes)
+// Layout Component with Sidebar
 const Layout = () => (
   <div className="flex">
     <SideBer />
-    <Suspense fallback={<div>Loading...</div>}>
-      <Outlet />
-    </Suspense>
+    <Outlet />
   </div>
 );
 
@@ -48,7 +46,7 @@ const route = createBrowserRouter([
       { path: '/dashboard', element: <Dashboard /> },
       { path: '/market', element: <Market /> },
       { path: '/kyc', element: <KYCrequect /> },
-      { path: '/users', element: <User /> },
+      { path: '/userDetails', element: <UserDetails /> },
       { path: '/transactions', element: <Transactions /> },
       { path: '/pendingTransactions', element: <PendingTransaction /> },
     ],

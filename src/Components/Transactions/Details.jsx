@@ -37,7 +37,7 @@ function Details({ fetchData, toast }) {
           id: transactionDetails.buyer._id,
           type: transactionDetails.type,
           coin: transactionDetails.coin
-        })
+        });
         if(updateCoin) {
           fetchData();
           toast.success("Payment Successfull");

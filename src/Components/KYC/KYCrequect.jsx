@@ -15,8 +15,8 @@ function KYCrequect() {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
 
-  // const [fileName, setFileName] = useState("Downloaded_File");
-  // const [fileUrl, setFileUrl] = useState(null);
+  const [fileName, setFileName] = useState("Downloaded_File");
+  const [fileUrl, setFileUrl] = useState(null);
 
   const [loading, setLoading] = useState(true);
   const [length, setLength] = useState(0);
@@ -73,7 +73,7 @@ function KYCrequect() {
       // Create a temporary download link
       const a = document.createElement("a");
       a.href = url;
-      a.download = `${user.name}_${user._id}.pdf`;
+      a.download = `${user.username}_${user._id}.pdf`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);

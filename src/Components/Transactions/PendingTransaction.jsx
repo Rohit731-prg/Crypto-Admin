@@ -106,77 +106,83 @@ function PendingTransaction() {
               <span>Pending Transaction</span>
             </p>
 
-            <table className="w-full">
-              <thead className="w-full">
-                <tr className="w-full flex flex-row justify-between bg-gray-500 py-2 px-5 rounded-t-lg mb-5">
-                  <td className="text-[20px] font-semibold w-1/5 text-center">
-                    Photo
-                  </td>
-                  <td className="text-[20px] font-semibold w-1/5 text-center">
-                    Date
-                  </td>
-                  <td className="text-[20px] font-semibold w-1/5 text-center">
-                    Type
-                  </td>
-                  <td className="text-[20px] font-semibold w-1/5 text-center">
-                    Name
-                  </td>
-                  <td className="text-[20px] font-semibold w-1/5 text-center">
-                    Value
-                  </td>
-                  <td className="text-[20px] font-semibold w-1/5 text-center">
-                    Amount
-                  </td>
-                  <td className="text-[20px] font-semibold w-1/5 text-center">
-                    Details
-                  </td>
-                </tr>
-              </thead>
-
-              <tbody className="w-full px-10">
-                {pendingtransaction.map((Transaction, index) => (
-                  <tr
-                    key={index}
-                    className="w-full flex flex-row justify-between px-5 rounded-t-lg mb-5 items-center"
-                  >
-                    <td className="text-xl w-1/5 flex justify-center">
-                      <img
-                        className="w-20 h-20 rounded-full object-cover"
-                        src={Transaction.buyer.photo}
-                        alt="image"
-                      />
+            {pendingtransaction.length == 0 ? (
+              <div>
+                <p className="">No Pending Transaction</p>
+              </div>
+            ) : (
+              <table className="w-full">
+                <thead className="w-full">
+                  <tr className="w-full flex flex-row justify-between bg-gray-500 py-2 px-5 rounded-t-lg mb-5">
+                    <td className="text-[20px] font-semibold w-1/5 text-center">
+                      Photo
                     </td>
-                    <td className="text-xl w-1/5 text-center">
-                      {new Date(Transaction.createdAt).toLocaleDateString()}
+                    <td className="text-[20px] font-semibold w-1/5 text-center">
+                      Date
                     </td>
-                    <td className="text-xl w-1/5 text-center">
-                      {Transaction.type}
+                    <td className="text-[20px] font-semibold w-1/5 text-center">
+                      Type
                     </td>
-                    <td className="text-xl w-1/5 text-center">
-                      {Transaction.buyer.fullName}
+                    <td className="text-[20px] font-semibold w-1/5 text-center">
+                      Name
                     </td>
-                    <td
-                      className={`text-xl w-1/5 text-center ${
-                        Transaction.status ? "text-green-500" : "text-red-500"
-                      }`}
-                    >
-                      {Transaction.status ? "Completed" : "Pending"}
+                    <td className="text-[20px] font-semibold w-1/5 text-center">
+                      Value
                     </td>
-                    <td className="text-xl w-1/5 text-center">
-                      ₹{Transaction.amount}
+                    <td className="text-[20px] font-semibold w-1/5 text-center">
+                      Amount
                     </td>
-                    <td className="text-xl w-1/5 flex justify-center">
-                      <button
-                        onClick={() => details(Transaction)}
-                        className="p-2 bg-gray-500 rounded-sm cursor-pointer"
-                      >
-                        <CgDetailsMore />
-                      </button>
+                    <td className="text-[20px] font-semibold w-1/5 text-center">
+                      Details
                     </td>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+
+                <tbody className="w-full px-10">
+                  {pendingtransaction.map((Transaction, index) => (
+                    <tr
+                      key={index}
+                      className="w-full flex flex-row justify-between px-5 rounded-t-lg mb-5 items-center"
+                    >
+                      <td className="text-xl w-1/5 flex justify-center">
+                        <img
+                          className="w-20 h-20 rounded-full object-cover"
+                          src={Transaction.buyer.photo}
+                          alt="image"
+                        />
+                      </td>
+                      <td className="text-xl w-1/5 text-center">
+                        {new Date(Transaction.createdAt).toLocaleDateString()}
+                      </td>
+                      <td className="text-xl w-1/5 text-center">
+                        {Transaction.type}
+                      </td>
+                      <td className="text-xl w-1/5 text-center">
+                        {Transaction.buyer.fullName}
+                      </td>
+                      <td
+                        className={`text-xl w-1/5 text-center ${
+                          Transaction.status ? "text-green-500" : "text-red-500"
+                        }`}
+                      >
+                        {Transaction.status ? "Completed" : "Pending"}
+                      </td>
+                      <td className="text-xl w-1/5 text-center">
+                        ₹{Transaction.amount}
+                      </td>
+                      <td className="text-xl w-1/5 flex justify-center">
+                        <button
+                          onClick={() => details(Transaction)}
+                          className="p-2 bg-gray-500 rounded-sm cursor-pointer"
+                        >
+                          <CgDetailsMore />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
           </div>
         </div>
       )}

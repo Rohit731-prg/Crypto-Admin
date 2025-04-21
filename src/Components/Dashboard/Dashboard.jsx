@@ -86,15 +86,15 @@ function Dashboard() {
             <div className="w-full flex flex-col gap-3">
               {Transactions.map((transaction) => (
                 <div key={transaction._id} className="w-full flex flex-row justify-between px-5 items-center">
-                  <div className="flex flex-row items-center gap-3 w-1/4">
+                  <div className="flex flex-row items-center gap-3 w-1/5">
                     <img
                       src={transaction.type == "buy" ? buy : sell}
                       className="w-10 h-10 rounded-full"
                     />
-                    <p className="text-xl">Gold Coin</p>
+                    <p className="text-xl w-1/5">Gold Coin</p>
                   </div>
-
-                  <div className="flex flex-col items-end w-1/4">
+                  <p>{transaction.buyer.fullName}</p>
+                  <div className="flex flex-col items-end w-1/5">
                     <p className="text-xl text-white">
                       {new Date(transaction.createdAt).toLocaleTimeString(
                         "en-US",
@@ -109,7 +109,7 @@ function Dashboard() {
                     </p>
                   </div>
 
-                  <p className="text-xl w-1/4 text-end">
+                  <p className="text-xl w-1/5 text-end">
                     <span 
                     className={transaction.type == 'buy' ? 'text-green-500 text-xl' : 'text-red-500 text-xl'}>
                       {transaction.type == 'buy' ? '+' : '-'}
@@ -117,7 +117,7 @@ function Dashboard() {
                     <span className="text-xl ml-2">{transaction.amount} gold Coin</span>
                   </p>
 
-                  <p className={`${transaction.status ? 'text-green-500' : 'text-red-500'} text-xl w-1/4 text-end`}>
+                  <p className={`${transaction.status ? 'text-green-500' : 'text-red-500'} text-xl w-1/5 text-end`}>
                     {transaction.status ? 'Completed' : 'Pending'}
                   </p>
                 </div>
