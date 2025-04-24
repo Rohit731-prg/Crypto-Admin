@@ -70,6 +70,9 @@ function QRcode() {
       console.log(res.data);
       setData(res.data.data[0]);
       setID(res.data.data[0]._id);
+
+      setBTCqr(res.data.data[0].BTCqr);
+      setUSDTqr(res.data.data[0].USDTqr);
     } catch (error) {
       console.log("Error from fetchDATA : ", error);
     }

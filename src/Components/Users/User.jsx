@@ -14,7 +14,11 @@ function User() {
 
   const fetchUsers = async () => {
     try {
-      const res = await axios.get("/user/get");
+      const res = await axios.get("/user/get", {
+        headers: {
+          "ngrok-skip-browser-warning": "true",
+        }
+      });
       const data = res.data.data;
       console.log(data);
       setUsers(data);

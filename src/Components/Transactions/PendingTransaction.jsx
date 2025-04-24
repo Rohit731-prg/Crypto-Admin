@@ -21,16 +21,21 @@ function PendingTransaction() {
   const fetchData = async () => {
     try {
       const res = await axios.get(
-        "http://209.126.4.145:4000/transactions/get"
+        "https://really-classic-moray.ngrok-free.app/transactions/get",
+        {
+          headers: {
+            "ngrok-skip-browser-warning": "true",
+          }
+        }
       );
-      console.log(res);
+      console.log(res.data.data);
 
-      // const updated = res.data.data.filter(
-      //   (transaction) => transaction.status === false
-      // );
-      // console.log(updated);
+      const updated = res.data.data.filter(
+        (transaction) => transaction.status === false
+      );
+      console.log(updated);
 
-      // setPendingTransaction(updated); // <-- use 'updated' here
+      setPendingTransaction(updated); // <-- use 'updated' here
     } catch (error) {
       console.log("Error from fetchData: ", error);
     }

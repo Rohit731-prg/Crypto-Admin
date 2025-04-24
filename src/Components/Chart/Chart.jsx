@@ -29,7 +29,11 @@ function Chart({ toast }) {
 
   const getData = async () => {
     try {
-      const res = await axios.get("coins/get");
+      const res = await axios.get("coins/get", {
+        headers: {
+          "ngrok-skip-browser-warning": "true",
+        }
+      });
       const data = res.data.data[0].list;
 
       const parsed = data.map((item) => ({

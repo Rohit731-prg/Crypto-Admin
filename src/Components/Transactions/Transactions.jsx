@@ -14,7 +14,11 @@ function Transactions() {
 
   const fetchData = async () => {
     try {
-      const res = await axios.get("https://really-classic-moray.ngrok-free.app/transactions/get");
+      const res = await axios.get("https://really-classic-moray.ngrok-free.app/transactions/get", {
+        headers: {
+          "ngrok-skip-browser-warning": "true",
+        }
+      });
       console.log(res.data.data);
       const updatedTransactions = res.data.data;
       console.log(updatedTransactions);

@@ -24,7 +24,11 @@ function KYCrequect() {
   // Fetch users data
   const fetchUsers = useCallback(async () => {
     try {
-      const res = await axios.get("/user/get");
+      const res = await axios.get("/user/get", {
+        headers: {
+          "ngrok-skip-browser-warning": "true",
+        }
+      });
       console.log(res.data.data);
       setUsers(res.data.data);
       const filterdUser = res.data.data.filter((user) => user.authorized != "Authorized").length;

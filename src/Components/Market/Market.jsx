@@ -22,7 +22,11 @@ function Market() {
 
   const getData = async () => {
     try {
-      const res = await axios.get('/coins/get');
+      const res = await axios.get('/coins/get', {
+        headers: {
+          "ngrok-skip-browser-warning": "true",
+        }
+      });
       
       const coin = res.data.data[0];
       const updatedPrice = coin.price;
