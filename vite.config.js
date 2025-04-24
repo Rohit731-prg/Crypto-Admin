@@ -5,21 +5,26 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   server: {
     proxy: {
-      "/users": {
-        target: "http://localhost:4000",
+      "/user": {
+        target: "http://209.126.4.145:4000",
         changeOrigin: true,
         secure: false,
       },
       "/coins": {
-        target: "http://localhost:4000",
+        target: "http://209.126.4.145:4000",
         changeOrigin: true,
         secure: false,
       },
       "transactions": {
-        target: "http://localhost:4000",
+        target: "http://209.126.4.145:4000",
         changeOrigin: true,
         secure: false
       },
+      "qrCode": {
+        target: "http://209.126.4.145:4000",
+        changeOrigin: true,
+        secure: false
+      }
     }
   },
   plugins: [react()],

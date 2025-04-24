@@ -20,16 +20,19 @@ function PendingTransaction() {
 
   const fetchData = async () => {
     try {
-      const res = await axios.get("http://localhost:4000/transactions/get");
-      console.log(res.data.data);
-      const updated = res.data.data;
-      const filterData = updated.filter(
-        (transaction) => transaction.status == false
+      const res = await axios.get(
+        "http://209.126.4.145:4000/transactions/get"
       );
-      console.log(filterData);
-      setPendingTransaction(filterData);
+      console.log(res);
+
+      // const updated = res.data.data.filter(
+      //   (transaction) => transaction.status === false
+      // );
+      // console.log(updated);
+
+      // setPendingTransaction(updated); // <-- use 'updated' here
     } catch (error) {
-      console.log("Error from fetchData : ", error);
+      console.log("Error from fetchData: ", error);
     }
   };
 

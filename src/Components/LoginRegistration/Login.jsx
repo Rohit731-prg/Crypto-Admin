@@ -24,7 +24,7 @@ function Login() {
     // const checkAdmin = async () => {
         
     //     try {
-    //         const res = await axios.post('http://localhost:4000/admin/getAdminByEmailPassword', {
+    //         const res = await axios.post('https://really-classic-moray.ngrok-free.app/admin/getAdminByEmailPassword', {
     //             email: adminDetails.email,
     //             password: adminDetails.password
     //         });
@@ -49,7 +49,7 @@ function Login() {
     // };
 
     const checkAdmin = async () => {
-        const fetchPromise = axios.post('http://localhost:4000/admin/getAdminByEmailPassword', {
+        const fetchPromise = axios.post('https://really-classic-moray.ngrok-free.app/admin/getAdminByEmailPassword', {
           email: adminDetails.email,
           password: adminDetails.password
         });

@@ -9,6 +9,7 @@ import axios from "axios";
 import user from "../../assets/user.png";
 import { APIContext } from "../../store/APIContext";
 import toast, { Toaster } from 'react-hot-toast';
+import { BsQrCode } from "react-icons/bs";
 
 function SideBer() {
   const { adminID } = useContext(APIContext); 
@@ -46,6 +47,10 @@ function SideBer() {
         navigate("/pendingTransactions");
         break;
       }
+      case 7: {
+        navigate("/qrCode");
+        break;
+      }
     }
   };
 
@@ -60,10 +65,11 @@ function SideBer() {
   const fetchData = async () => {
     console.log(adminID);
     try {
-      const res = await axios.post("http://localhost:4000/admin/getAdminByID", { id: adminID });
+      const res = await axios.post("https://really-classic-moray.ngrok-free.app/admin/getAdminByID", { id: adminID });
       const data = res.data.data;
       console.log(data);
       setDetails(data);
+      
     } catch (error) {
       console.log("Error fetching data:", error);
     }
@@ -114,6 +120,11 @@ function SideBer() {
             icon: <AiOutlineTransaction />,
             name: "Pending Transactions",
             id: 6,
+          },
+          {
+            icon: <BsQrCode />,
+            name: "QR Code",
+            id: 7,
           },
         ].map((item) => (
           <button

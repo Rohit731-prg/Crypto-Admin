@@ -23,7 +23,7 @@ function UpdateAdmin() {
     }
     try {
         console.log(formData);
-        const res = await axios.post('http://localhost:4000/admin/getAdminByName', {
+        const res = await axios.post('https://really-classic-moray.ngrok-free.app/admin/getAdminByName', {
             email: email,
             name: userName
         });
@@ -45,7 +45,7 @@ function UpdateAdmin() {
   const setNewPassword = async () => {
     if (passwords.newPassword === passwords.confirmPassword) {
       console.log(adminDetails);
-      const res = await axios.put('http://localhost:4000/admin/update', {id: adminDetails._id, password: passwords.newPassword});
+      const res = await axios.put('https://really-classic-moray.ngrok-free.app/admin/update', {id: adminDetails._id, password: passwords.newPassword});
 
       if(res.data.success === true) {
         toast.success('Password Updated Successfully')

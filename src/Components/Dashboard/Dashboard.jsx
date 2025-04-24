@@ -14,7 +14,7 @@ function Dashboard() {
 
   const fetchData = async () => {
     try {
-      const res = await axios.get("http://localhost:4000/transactions/get");
+      const res = await axios.get("https://really-classic-moray.ngrok-free.app/transactions/get");
       console.log(res.data);
       const updatedTransactions = res.data.data.slice(0, 5);
 

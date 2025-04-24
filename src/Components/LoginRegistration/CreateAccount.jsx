@@ -30,7 +30,7 @@ function CreateAccount() {
           image: adminPhoto,
         };
         const res = await axios.post(
-          "http://localhost:4000/admin/insert",
+          "https://really-classic-moray.ngrok-free.app/admin/insert",
           formData
         );
 

@@ -14,7 +14,7 @@ function Transactions() {
 
   const fetchData = async () => {
     try {
-      const res = await axios.get("http://localhost:4000/transactions/get");
+      const res = await axios.get("https://really-classic-moray.ngrok-free.app/transactions/get");
       console.log(res.data.data);
       const updatedTransactions = res.data.data;
       console.log(updatedTransactions);

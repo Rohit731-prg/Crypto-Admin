@@ -24,10 +24,12 @@ function KYCrequect() {
   // Fetch users data
   const fetchUsers = useCallback(async () => {
     try {
-      const res = await axios.get("/users/get");
+      const res = await axios.get("/user/get");
       console.log(res.data.data);
       setUsers(res.data.data);
-      setLength(res.data.data.filter((user) => user.authorized != "Authorized").length);
+      const filterdUser = res.data.data.filter((user) => user.authorized != "Authorized").length;
+      console.log(filterdUser);
+      setLength(filterdUser);
     } catch (error) {
       console.error("Error fetching users:", error);
     } finally {
@@ -42,7 +44,7 @@ function KYCrequect() {
   // Update user authentication
   const updateUser = async (id) => {
     try {
-      await axios.put("/users/updateAuthentication", {
+      await axios.put("/user/updateAuthentication", {
         id: id,
         authorized: 'Authorized',
       });

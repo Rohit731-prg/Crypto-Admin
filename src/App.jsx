@@ -12,6 +12,7 @@ import UserDetails from './Components/Users/User';
 import Transactions from './Components/Transactions/Transactions';
 import Login from './Components/LoginRegistration/Login';
 import UpdateAdmin from './Components/LoginRegistration/UpdateAdmin';
+import QRcode from './Components/QRcode/QRcode';
 
 // Layout Component with Sidebar
 const Layout = () => (
@@ -49,6 +50,7 @@ const route = createBrowserRouter([
       { path: '/userDetails', element: <UserDetails /> },
       { path: '/transactions', element: <Transactions /> },
       { path: '/pendingTransactions', element: <PendingTransaction /> },
+      { path: '/qrCode', element: <QRcode /> },
     ],
   },
 ]);

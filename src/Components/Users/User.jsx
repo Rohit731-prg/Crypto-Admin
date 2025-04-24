@@ -14,8 +14,9 @@ function User() {
 
   const fetchUsers = async () => {
     try {
-      const res = await axios.get("/users/get");
+      const res = await axios.get("/user/get");
       const data = res.data.data;
+      console.log(data);
       setUsers(data);
     } catch (error) {
       console.log(error);
