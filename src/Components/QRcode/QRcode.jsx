@@ -59,10 +59,17 @@ function QRcode() {
 
   const fetchDATA = async () => {
     try {
-      const res = await axios.get("https://really-classic-moray.ngrok-free.app/qrCode/get");
+      const res = await axios.get(
+        "https://really-classic-moray.ngrok-free.app/qrCode/get",
+        {
+          headers: {
+            "ngrok-skip-browser-warning": "true",
+          },
+        }
+      );
       console.log(res.data);
-      // setData(res.data.data[0]);
-      // setID(res.data.data[0]._id);
+      setData(res.data.data[0]);
+      setID(res.data.data[0]._id);
     } catch (error) {
       console.log("Error from fetchDATA : ", error);
     }
