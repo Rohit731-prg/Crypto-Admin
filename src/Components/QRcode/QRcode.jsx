@@ -14,8 +14,8 @@ function QRcode() {
   const navigate = useNavigate();
   const [data, setData] = useState(null);
 
-  const [BTCqr, setBTCqr] = useState(null);
-  const [USDTqr, setUSDTqr] = useState(null);
+  const [BTCqr, setBTCqr] = useState('bc1qfamsyuzedw40dd8u886pw3yy9ps9z0my9nq825');
+  const [USDTqr, setUSDTqr] = useState('TM5mgzFLyzHuaxRXZTEoaUsuTm83rYyWZD');
   const [id, setID] = useState(null);
 
   const updateQrCode = async (type) => {
