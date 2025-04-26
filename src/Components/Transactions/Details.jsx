@@ -8,19 +8,19 @@ import toast, { Toaster } from 'react-hot-toast';
 
 function Details({ fetchData, toast }) {
   const { transactionDetails, isShow, setIsShow } = useContext(APIContext);
-  const [userDetails, setUserDetails] = useState(null);
+  // const [userDetails, setUserDetails] = useState(null);
 
   const fetchUser = async () => {
-    const id = transactionDetails.buyer;
-    console.log(id);
-    try {
-      const res = await axios.post("/users/getUserByID", { id });
-      const data1 = res.data.data;
+    // const id = transactionDetails.buyer;
+    // console.log(id);
+    // try {
+    //   const res = await axios.post("/users/getUserByID", { id });
+    //   const data1 = res.data.data;
 
-      setUserDetails(data1);
-    } catch (error) {
-      console.log("Erroe from fetchUser : ", error);
-    }
+    //   setUserDetails(data1);
+    // } catch (error) {
+    //   console.log("Erroe from fetchUser : ", error);
+    // }
   };
 
   const updatePayment = async () => {
@@ -28,16 +28,18 @@ function Details({ fetchData, toast }) {
     try {
       const res = await axios.put(
         "https://really-classic-moray.ngrok-free.app/transactions/updateStatus",
-        { id }
+        { id: id }
       );
-      console.log(res.data.ststus);
+      console.log(res.data.status);
       if (res.data.status == true) {
         console.log(transactionDetails.buyer._id, transactionDetails.type, transactionDetails.coin);
+
         const updateCoin = await axios.put('https://really-classic-moray.ngrok-free.app/users/updateCoin', {
           id: transactionDetails.buyer._id,
           type: transactionDetails.type,
           coin: transactionDetails.coin
         });
+        console.log(updateCoin);
         if(updateCoin) {
           fetchData();
           toast.success("Payment Successfull");
@@ -120,7 +122,7 @@ function Details({ fetchData, toast }) {
 
               <div>
                 <p className="text-xl text-gray-400">Amount</p>
-                <p className="text-[24px] text-white font-semibold"><span className={`${transactionDetails.type == 'buy' ? 'text-green-500' : 'text-red-500'}`}>{transactionDetails.type == 'buy' ? '+' : '-'}</span>$ {transactionDetails.amount}</p>
+                <p className="text-[24px] text-white font-semibold">{`+${transactionDetails.amount}`}</p>
               </div>
             </div>
           </div>

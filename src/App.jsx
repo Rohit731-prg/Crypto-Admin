@@ -13,6 +13,7 @@ import Transactions from './Components/Transactions/Transactions';
 import Login from './Components/LoginRegistration/Login';
 import UpdateAdmin from './Components/LoginRegistration/UpdateAdmin';
 import QRcode from './Components/QRcode/QRcode';
+import Message from './Components/MessageStore/Message';
 
 // Layout Component with Sidebar
 const Layout = () => (
@@ -51,6 +52,7 @@ const route = createBrowserRouter([
       { path: '/transactions', element: <Transactions /> },
       { path: '/pendingTransactions', element: <PendingTransaction /> },
       { path: '/qrCode', element: <QRcode /> },
+      { path: '/message', element: <Message /> },
     ],
   },
 ]);

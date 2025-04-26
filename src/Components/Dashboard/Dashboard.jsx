@@ -20,8 +20,7 @@ function Dashboard() {
         }
       });
       console.log(res.data);
-      const updatedTransactions = res.data.data.slice(0, 5);
-
+      const updatedTransactions = res.data.data.slice(0, 4);
       setTransactions(updatedTransactions);
     } catch (error) {
       console.log("Error from fetchData : ", error);
@@ -115,8 +114,8 @@ function Dashboard() {
 
                   <p className="text-xl w-1/5 text-end">
                     <span 
-                    className={transaction.type == 'buy' ? 'text-green-500 text-xl' : 'text-red-500 text-xl'}>
-                      {transaction.type == 'buy' ? '+' : '-'}
+                    className={`text-green-500 text-xl`}>
+                      +
                     </span>
                     <span className="text-xl ml-2">{transaction.amount} gold Coin</span>
                   </p>

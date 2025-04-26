@@ -25,17 +25,19 @@ function PendingTransaction() {
         {
           headers: {
             "ngrok-skip-browser-warning": "true",
-          }
+          },
         }
       );
-      console.log(res.data.data);
 
-      const updated = res.data.data.filter(
-        (transaction) => transaction.status === false
+      if (res.data.status == false) {
+        setPendingTransaction(0);
+      }
+
+      const updatedTransactions = res.data.data.filter(
+        (transaction) => transaction.status != true
       );
-      console.log(updated);
+      setPendingTransaction(updatedTransactions);
 
-      setPendingTransaction(updated); // <-- use 'updated' here
     } catch (error) {
       console.log("Error from fetchData: ", error);
     }
@@ -114,7 +116,7 @@ function PendingTransaction() {
               <span>Pending Transaction</span>
             </p>
 
-            {pendingtransaction.length == 0 ? (
+            {pendingtransaction == 0 ? (
               <div>
                 <p className="">No Pending Transaction</p>
               </div>

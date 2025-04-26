@@ -14,8 +14,8 @@ function QRcode() {
   const navigate = useNavigate();
   const [data, setData] = useState(null);
 
-  const [BTCqr, setBTCqr] = useState('bc1qfamsyuzedw40dd8u886pw3yy9ps9z0my9nq825');
-  const [USDTqr, setUSDTqr] = useState('TM5mgzFLyzHuaxRXZTEoaUsuTm83rYyWZD');
+  const [BTCqr, setBTCqr] = useState('');
+  const [USDTqr, setUSDTqr] = useState('');
   const [id, setID] = useState(null);
 
   const updateQrCode = async (type) => {
@@ -36,7 +36,9 @@ function QRcode() {
         );
 
         console.log(res);
-        alert("Updated Successfully");
+        toast.success("Updated Successfully");
+        setBTCqr('');
+        fetchDATA();
       } else {
         const res = await axios.put(
           "https://really-classic-moray.ngrok-free.app/qrCode/update",
@@ -49,6 +51,7 @@ function QRcode() {
 
         console.log(res);
         toast.success("Updated Successfully");
+        setUSDTqr('');
         fetchDATA();
       }
     } catch (error) {
@@ -70,9 +73,6 @@ function QRcode() {
       console.log(res.data);
       setData(res.data.data[0]);
       setID(res.data.data[0]._id);
-
-      setBTCqr(res.data.data[0].BTCqr);
-      setUSDTqr(res.data.data[0].USDTqr);
     } catch (error) {
       console.log("Error from fetchDATA : ", error);
     }
@@ -133,7 +133,7 @@ function QRcode() {
               <div className="bg-[#525252] flex flex-col w-1/2 p-10 rounded-xl">
                 <p className="text-3xl font-semibold">BTC QR CODE</p>
                 <div className="border-2 w-fit my-5">
-                  <QRCodeSVG value={BTCqr} height={300} width={300} />
+                  <QRCodeSVG value={data.BTC} height={300} width={300} />
                 </div>
                 <div className="flex flex-col">
                   <input
@@ -163,7 +163,7 @@ function QRcode() {
               <div className="bg-[#525252] flex flex-col p-10 rounded-xl w-1/2">
                 <p className="text-3xl font-semibold">USDT QR CODE</p>
                 <div className="border-2 w-fit my-5">
-                  <QRCodeSVG value={USDTqr} height={300} width={300} />
+                  <QRCodeSVG value={data.USDT} height={300} width={300} />
                 </div>
                 <div className="flex flex-col">
                   <input

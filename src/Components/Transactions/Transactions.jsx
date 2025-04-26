@@ -19,10 +19,15 @@ function Transactions() {
           "ngrok-skip-browser-warning": "true",
         }
       });
-      console.log(res.data.data);
+      console.log(res.data);
+      if (res.data.status == false) {
+        console.log('res.data.data');
+        setTransactions(0);
+        return;
+      }
       const updatedTransactions = res.data.data;
-      console.log(updatedTransactions);
       setTransactions(updatedTransactions);
+
     } catch (error) {
       console.log("error from transactions", error);
     }
@@ -64,7 +69,7 @@ function Transactions() {
           </button>
       </nav>
 
-      {Transactions == null || Transactions.length == 0 ? (
+      {Transactions == null ? (
         <div className="w-full h-screen flex justify-center items-center">
           <div className="flex flex-row justify-center items-center gap-5">
             <div className="w-20">
@@ -77,7 +82,13 @@ function Transactions() {
         <div className="mt-40 px-40">
           <div className="mt-20 w-full bg-black px-20 py-10 rounded-lg">
             <p className="text-2xl mb-10 bg-[#616161] py-3 px-5 inline-block rounded-sm">All Transactions</p>
-            <table className="w-full">
+
+            {Transactions == 0 ? (
+              <div>
+                <p>No Transactions Found</p>
+              </div>
+            ) : (
+              <table className="w-full">
               <thead className="w-full">
                 <tr className="w-full flex flex-row justify-between bg-gray-500 py-2 px-5 rounded-lg mb-5">
                   <td className="text-[20px] font-semibold w-1/5 text-center">Photo</td>
@@ -105,7 +116,7 @@ function Transactions() {
                     <td className="text-xl w-1/5 text-center">{Transaction.type}</td>
                     <td className="text-xl w-1/5 text-center">{Transaction.buyer.fullName}</td>
                     
-                    <td className="text-xl w-1/5 text-center">{Transaction.type == 'buy' ? `+${Transaction.amount}` : `-${Transaction.amount}`}</td>
+                    <td className="text-xl w-1/5 text-center text-green-500">{`+${Transaction.amount}`}</td>
                     <td className="text-xl w-1/5 text-center">{Transaction.coin}</td>
                     <td 
                     className={`text-xl w-1/5 px-3 py-2 rounded-md font-semibold ${Transaction.status ? 'text-green-700 bg-green-100' : 'text-red-800 bg-red-100'}`}>
@@ -120,6 +131,8 @@ function Transactions() {
                 ))}
               </tbody>
             </table>
+            )}
+            
           </div>
         </div>
       )}

@@ -10,6 +10,7 @@ import user from "../../assets/user.png";
 import { APIContext } from "../../store/APIContext";
 import toast, { Toaster } from 'react-hot-toast';
 import { BsQrCode } from "react-icons/bs";
+import { IoIosChatbubbles } from "react-icons/io";
 
 function SideBer() {
   const { adminID } = useContext(APIContext); 
@@ -49,6 +50,10 @@ function SideBer() {
       }
       case 7: {
         navigate("/qrCode");
+        break;
+      }
+      case 8: {
+        navigate("/message");
         break;
       }
     }
@@ -125,6 +130,11 @@ function SideBer() {
             icon: <BsQrCode />,
             name: "QR Code",
             id: 7,
+          },
+          {
+            icon: <IoIosChatbubbles />,
+            name: "Message",
+            id: 8,
           },
         ].map((item) => (
           <button
