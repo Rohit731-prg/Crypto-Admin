@@ -178,7 +178,7 @@ function PendingTransaction() {
                         {Transaction.status ? "Completed" : "Pending"}
                       </td>
                       <td className="text-xl w-1/5 text-center">
-                        ₹{Transaction.amount}
+                        ₹{Math.round(Transaction.amount)}
                       </td>
                       <td className="text-xl w-1/5 flex justify-center">
                         <button

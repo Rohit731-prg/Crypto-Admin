@@ -116,7 +116,7 @@ function Transactions() {
                     <td className="text-xl w-1/5 text-center">{Transaction.type}</td>
                     <td className="text-xl w-1/5 text-center">{Transaction.buyer.fullName}</td>
                     
-                    <td className="text-xl w-1/5 text-center text-green-500">{`+${Transaction.amount}`}</td>
+                    <td className="text-xl w-1/5 text-center text-green-500">${`${parseFloat(Transaction.amount).toFixed(2)}`}</td>
                     <td className="text-xl w-1/5 text-center">{Transaction.coin}</td>
                     <td 
                     className={`text-xl w-1/5 px-3 py-2 rounded-md font-semibold ${Transaction.status ? 'text-green-700 bg-green-100' : 'text-red-800 bg-red-100'}`}>

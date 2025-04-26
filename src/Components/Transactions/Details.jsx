@@ -34,7 +34,7 @@ function Details({ fetchData, toast }) {
       if (res.data.status == true) {
         console.log(transactionDetails.buyer._id, transactionDetails.type, transactionDetails.coin);
 
-        const updateCoin = await axios.put('https://really-classic-moray.ngrok-free.app/users/updateCoin', {
+        const updateCoin = await axios.put('https://really-classic-moray.ngrok-free.app/user/updateCoin', {
           id: transactionDetails.buyer._id,
           type: transactionDetails.type,
           coin: transactionDetails.coin

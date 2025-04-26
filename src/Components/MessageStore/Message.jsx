@@ -163,7 +163,7 @@ function Message() {
                       Message
                     </p>
 
-                    <div className="flex flex-col gap-4 h-[600px] overflow-y-auto p-4 bg-gray-800 rounded-md">
+                    <div className="flex flex-col gap-4 h-[600px] overflow-y-auto p-4 rounded-md">
                       {details.map((sms, index) => (
                         <div
                           key={index}
