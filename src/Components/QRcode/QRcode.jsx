@@ -85,20 +85,7 @@ function QRcode() {
     <div className="w-full text-white h-auto bg-gradient-to-b from-[#151515] to-[#1a1a2e]">
       <nav className="mt-5 flex flex-row justify-between items-center px-20">
         <p className="text-4xl">QR PAGE</p>
-        <div className="flex flex-row items-center justify-between bg-black px-5 py-3 w-1/2 rounded-full">
-          <p className="text-2xl">
-            <IoReorderThree />
-          </p>
-          <input
-            placeholder="Search QR CODE"
-            className="bg-transparent w-full mx-5 border-none outline-none"
-            type="text"
-          />
-
-          <button>
-            <FaSearch />
-          </button>
-        </div>
+        
         <button
           onClick={() => navigate("/")}
           className="group flex items-center justify-start w-11 h-11 bg-violet-600 rounded-full cursor-pointer relative overflow-hidden transition-all duration-200 shadow-lg hover:w-32  active:translate-x-1 active:translate-y-1"
@@ -116,7 +103,7 @@ function QRcode() {
 
       <div className="px-40">
         {data == null ? (
-          <div className="w-full h-screen flex items-center justify-center">
+          <div className="w-full h-auto flex items-center justify-center">
             <div>
               <Lottie animationData={Loading} loop={true} className="w-20" />
             </div>

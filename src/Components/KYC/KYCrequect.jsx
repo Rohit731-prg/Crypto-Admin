@@ -93,23 +93,12 @@ function KYCrequect() {
   };
 
   return (
-    <div className="w-full text-white h-screen bg-gradient-to-b from-[#151515] to-[#1a1a2e]">
+    <div className="w-full text-white h-auto bg-gradient-to-b from-[#151515] to-[#1a1a2e]">
       {/* Navbar */}
       <nav className="mt-5 flex flex-row justify-between items-center px-20">
         <p className="text-4xl">KYC Request</p>
-        <div className="flex flex-row items-center justify-between bg-black px-5 py-3 w-1/2 rounded-full">
-          <p className="text-2xl">
-            <IoReorderThree />
-          </p>
-          <input
-            placeholder="Search KYC Request"
-            className="bg-transparent w-full mx-5 border-none outline-none"
-            type="text"
-          />
-          <button>
-            <FaSearch />
-          </button>
-        </div>
+        
+        <div className="flex flex-row gap-10">
         <p className="text-5xl flex flex-row items-start gap-0">
           <IoIosNotifications />
           <span className="text-[18px] bg-red-500 p-2 rounded-full">
@@ -129,6 +118,7 @@ function KYCrequect() {
             Logout
           </div>
         </button>
+        </div>
       </nav>
 
       {/* Loading State */}

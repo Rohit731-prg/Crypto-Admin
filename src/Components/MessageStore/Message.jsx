@@ -6,8 +6,10 @@ import Lottie from "lottie-react";
 import axios from "axios";
 import { IoSend } from "react-icons/io5";
 import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 function Message() {
+  const navigate = useNavigate();
   const [users, setUsers] = useState(null);
   const [details, setDetails] = useState(null);
   const [SelectedUser, setSelectedUser] = useState(null);
@@ -23,9 +25,7 @@ function Message() {
       });
 
       console.log(res.data.data);
-      const updatedUser = res.data.data.filter(
-        (user) => user.authorized == "Authorized"
-      );
+      const updatedUser = res.data.data
       setUsers(updatedUser);
     } catch (error) {
       console.log("error from fetchUsers", error);
@@ -33,6 +33,7 @@ function Message() {
   };
 
   const sendMessage = async () => {
+    
     const data = {
       content: adminMessage,
       owner: "admin",
@@ -56,6 +57,7 @@ function Message() {
   };
 
   const fetchdetails = async (id) => {
+    
     setSelectedUser(id);
     try {
       const res = await axios.post(
@@ -73,23 +75,10 @@ function Message() {
   }, []);
 
   return (
-    <div className="w-full text-white h-screen bg-gradient-to-b from-[#151515] to-[#1a1a2e]">
+    <div className="w-full text-white h-auto bg-gradient-to-b from-[#151515] to-[#1a1a2e]">
       <nav className="mt-5 flex flex-row justify-between items-center px-20">
         <p className="text-4xl">Message</p>
-        <div className="flex flex-row items-center justify-between bg-black px-5 py-3 w-1/2 rounded-full">
-          <p className="text-2xl">
-            <IoReorderThree />
-          </p>
-          <input
-            placeholder="Search Message"
-            className="bg-transparent w-full mx-5 border-none outline-none"
-            type="text"
-          />
-
-          <button>
-            <FaSearch />
-          </button>
-        </div>
+        
         <button
           onClick={() => navigate("/")}
           className="group flex items-center justify-start w-11 h-11 bg-violet-600 rounded-full cursor-pointer relative overflow-hidden transition-all duration-200 shadow-lg hover:w-32  active:translate-x-1 active:translate-y-1"
@@ -140,9 +129,9 @@ function Message() {
                         alt=""
                       />
 
-                      <div className="py-4">
-                        <p>{user.fullName}</p>
-                        <p></p>
+                      <div className="py-4 flex flex-col items-start">
+                        <p className="text-xl font-semibold">{user.fullName}</p>
+                        <p className={`text-sm font-normal ${user.authorized == "Authorized" ? "text-green-500" : "text-red-500"}`}>{user.authorized}</p>
                       </div>
                     </div>
                   </button>

@@ -38,23 +38,10 @@ function Transactions() {
   }, []);
 
   return (
-    <div className="w-full text-white h-screen bg-gradient-to-b from-[#151515] to-[#1a1a2e]">
+    <div className="w-full text-white h-auto bg-gradient-to-b from-[#151515] to-[#1a1a2e]">
       <nav className="mt-5 flex flex-row justify-between items-center px-20">
         <p className="text-4xl">Transactions</p>
-        <div className="flex flex-row items-center justify-between bg-black px-5 py-3 w-1/2 rounded-full">
-          <p className="text-2xl">
-            <IoReorderThree />
-          </p>
-          <input
-            placeholder="Search Transactions"
-            className="bg-transparent w-full mx-5 border-none outline-none"
-            type="text"
-          />
-
-          <button>
-            <FaSearch />
-          </button>
-        </div>
+        
         <button
             onClick={() => navigate('/')}
             className="group flex items-center justify-start w-11 h-11 bg-violet-600 rounded-full cursor-pointer relative overflow-hidden transition-all duration-200 shadow-lg hover:w-32  active:translate-x-1 active:translate-y-1">
@@ -70,7 +57,7 @@ function Transactions() {
       </nav>
 
       {Transactions == null ? (
-        <div className="w-full h-screen flex justify-center items-center">
+        <div className="w-full h-auto flex justify-center items-center">
           <div className="flex flex-row justify-center items-center gap-5">
             <div className="w-20">
               <Lottie animationData={loading} loop={true} />
