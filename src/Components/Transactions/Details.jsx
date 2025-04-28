@@ -27,14 +27,14 @@ function Details({ fetchData, toast }) {
     const id = transactionDetails._id;
     try {
       const res = await axios.put(
-        "https://really-classic-moray.ngrok-free.app/transactions/updateStatus",
+        "http://209.126.4.145:4000/transactions/updateStatus",
         { id: id }
       );
       console.log(res.data.status);
       if (res.data.status == true) {
         console.log(transactionDetails.buyer._id, transactionDetails.type, transactionDetails.coin);
 
-        const updateCoin = await axios.put('https://really-classic-moray.ngrok-free.app/user/updateCoin', {
+        const updateCoin = await axios.put('http://209.126.4.145:4000/user/updateCoin', {
           id: transactionDetails.buyer._id,
           type: transactionDetails.type,
           coin: transactionDetails.coin

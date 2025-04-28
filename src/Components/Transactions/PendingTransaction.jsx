@@ -21,7 +21,7 @@ function PendingTransaction() {
   const fetchData = async () => {
     try {
       const res = await axios.get(
-        "https://really-classic-moray.ngrok-free.app/transactions/get",
+        "http://209.126.4.145:4000/transactions/get",
         {
           headers: {
             "ngrok-skip-browser-warning": "true",

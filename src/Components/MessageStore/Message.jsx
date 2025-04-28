@@ -25,7 +25,7 @@ function Message() {
       });
 
       console.log(res.data.data);
-      const updatedUser = res.data.data
+      const updatedUser = res.data.data.filter((user) => user.authorized == "Authorized");
       setUsers(updatedUser);
     } catch (error) {
       console.log("error from fetchUsers", error);
@@ -33,7 +33,6 @@ function Message() {
   };
 
   const sendMessage = async () => {
-    
     const data = {
       content: adminMessage,
       owner: "admin",
@@ -41,7 +40,7 @@ function Message() {
 
     try {
       const res = await axios.put(
-        `https://really-classic-moray.ngrok-free.app/message/update/${SelectedUser}`,
+        `http://209.126.4.145:4000/message/update/${SelectedUser}`,
         data
       );
       console.log(res);
@@ -57,11 +56,10 @@ function Message() {
   };
 
   const fetchdetails = async (id) => {
-    
     setSelectedUser(id);
     try {
       const res = await axios.post(
-        `https://really-classic-moray.ngrok-free.app/message/getMessagesByUser/${id}`
+        `http://209.126.4.145:4000/message/getMessagesByUser/${id}`
       );
       console.log(res.data.data);
       setDetails(res.data.data[0].messages); // <-- full array, not res.data.data[0]
@@ -78,7 +76,7 @@ function Message() {
     <div className="w-full text-white h-auto bg-gradient-to-b from-[#151515] to-[#1a1a2e]">
       <nav className="mt-5 flex flex-row justify-between items-center px-20">
         <p className="text-4xl">Message</p>
-        
+
         <button
           onClick={() => navigate("/")}
           className="group flex items-center justify-start w-11 h-11 bg-violet-600 rounded-full cursor-pointer relative overflow-hidden transition-all duration-200 shadow-lg hover:w-32  active:translate-x-1 active:translate-y-1"
@@ -111,15 +109,16 @@ function Message() {
             </div>
           ) : (
             <div className="flex flex-row gap-5">
-              <div className="w-1/3 flex flex-col p-3 bg-black rounded-md px-5 h-[750px]">
+              <div className="w-1/3 flex flex-col p-3 bg-black rounded-md px-5 h-[750px] overflow-y-auto">
                 <p className="text-2xl px-10 py-2 font-semibold bg-gray-500 w-fit rounded-sm mb-5">
                   Users
                 </p>
                 {users.map((user) => (
                   <button
+                    key={user._id} // Important: Added key for React list
                     onClick={() => fetchdetails(user._id)}
                     className={`${
-                      SelectedUser == user._id ? "bg-violet-600" : ""
+                      SelectedUser === user._id ? "bg-violet-600" : ""
                     } rounded-lg w-full flex flex-row items-center justify-between px-5 py-3`}
                   >
                     <div className="flex flex-row items-start gap-5">
@@ -128,10 +127,17 @@ function Message() {
                         src={user.photo}
                         alt=""
                       />
-
                       <div className="py-4 flex flex-col items-start">
                         <p className="text-xl font-semibold">{user.fullName}</p>
-                        <p className={`text-sm font-normal ${user.authorized == "Authorized" ? "text-green-500" : "text-red-500"}`}>{user.authorized}</p>
+                        <p
+                          className={`text-sm font-normal ${
+                            user.authorized === "Authorized"
+                              ? "text-green-500"
+                              : "text-red-500"
+                          }`}
+                        >
+                          {user.authorized}
+                        </p>
                       </div>
                     </div>
                   </button>

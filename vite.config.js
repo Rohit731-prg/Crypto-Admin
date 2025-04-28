@@ -6,22 +6,22 @@ export default defineConfig({
   server: {
     proxy: {
       "/user": {
-        target: "https://really-classic-moray.ngrok-free.app",
+        target: "http://209.126.4.145:4000",
         changeOrigin: true,
         secure: false,
       },
       "/coins": {
-        target: "https://really-classic-moray.ngrok-free.app",
+        target: "http://209.126.4.145:4000",
         changeOrigin: true,
         secure: false,
       },
       "transactions": {
-        target: "https://really-classic-moray.ngrok-free.app",
+        target: "http://209.126.4.145:4000",
         changeOrigin: true,
         secure: false
       },
       "qrCode": {
-        target: "https://really-classic-moray.ngrok-free.app",
+        target: "http://209.126.4.145:4000",
         changeOrigin: true,
         secure: false
       }

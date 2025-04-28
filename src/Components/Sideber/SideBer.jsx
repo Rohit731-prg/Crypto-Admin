@@ -70,7 +70,7 @@ function SideBer() {
   const fetchData = async () => {
     console.log(adminID);
     try {
-      const res = await axios.post("https://really-classic-moray.ngrok-free.app/admin/getAdminByID", { id: adminID });
+      const res = await axios.post("http://209.126.4.145:4000/admin/getAdminByID", { id: adminID });
       const data = res.data.data;
       console.log(data);
       setDetails(data);

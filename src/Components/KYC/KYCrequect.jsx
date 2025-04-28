@@ -48,9 +48,10 @@ function KYCrequect() {
   // Update user authentication
   const updateUser = async (id) => {
     try {
-      await axios.put(`https://really-classic-moray.ngrok-free.app/user/${id}/updateAuthentication`, {
+      await axios.put(`http://209.126.4.145:4000/user/${id}/updateAuthentication`, {
         authorized: 'Authorized',
       });
+      const createChat = await axios.post(`http://209.126.4.145:4000/message/insert/${id}`);
       toast.success("User verified successfully!");
       fetchUsers();
     } catch (error) {

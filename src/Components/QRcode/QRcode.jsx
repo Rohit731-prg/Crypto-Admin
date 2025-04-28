@@ -27,7 +27,7 @@ function QRcode() {
 
       if (type == "BTC") {
         const res = await axios.put(
-          "https://really-classic-moray.ngrok-free.app/qrCode/update",
+          "http://209.126.4.145:4000/qrCode/update",
           {
             id: id,
             code: BTCqr,
@@ -41,7 +41,7 @@ function QRcode() {
         fetchDATA();
       } else {
         const res = await axios.put(
-          "https://really-classic-moray.ngrok-free.app/qrCode/update",
+          "http://209.126.4.145:4000/qrCode/update",
           {
             id: id,
             code: USDTqr,
@@ -63,7 +63,7 @@ function QRcode() {
   const fetchDATA = async () => {
     try {
       const res = await axios.get(
-        "https://really-classic-moray.ngrok-free.app/qrCode/get",
+        "http://209.126.4.145:4000/qrCode/get",
         {
           headers: {
             "ngrok-skip-browser-warning": "true",
