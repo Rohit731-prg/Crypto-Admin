@@ -47,7 +47,6 @@ function Message() {
       console.log(res.data.status);
 
       if (res.data.status === true) {
-        toast.success("Message Sent Successfully");
         setAdminMessage("");
         fetchdetails(SelectedUser);
       }
