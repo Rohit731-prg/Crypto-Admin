@@ -13,7 +13,6 @@ function Message() {
   const [users, setUsers] = useState(null);
   const [details, setDetails] = useState(null);
   const [SelectedUser, setSelectedUser] = useState(null);
-
   const [adminMessage, setAdminMessage] = useState("");
 
   const fetchUsers = async () => {
@@ -23,8 +22,6 @@ function Message() {
           "ngrok-skip-browser-warning": "true",
         },
       });
-
-      console.log(res.data.data);
       const updatedUser = res.data.data.filter((user) => user.authorized == "Authorized");
       setUsers(updatedUser);
     } catch (error) {
@@ -43,9 +40,6 @@ function Message() {
         `http://209.126.4.145:4000/message/update/${SelectedUser}`,
         data
       );
-      console.log(res);
-      console.log(res.data.status);
-
       if (res.data.status === true) {
         setAdminMessage("");
         fetchdetails(SelectedUser);
@@ -61,8 +55,7 @@ function Message() {
       const res = await axios.post(
         `http://209.126.4.145:4000/message/getMessagesByUser/${id}`
       );
-      console.log(res.data.data);
-      setDetails(res.data.data[0].messages); // <-- full array, not res.data.data[0]
+      setDetails(res.data.data[0].messages);
     } catch (error) {
       console.log("Error updating user:", error);
     }
@@ -115,7 +108,7 @@ function Message() {
                 </p>
                 {users.map((user) => (
                   <button
-                    key={user._id} // Important: Added key for React list
+                    key={user._id}
                     onClick={() => fetchdetails(user._id)}
                     className={`${
                       SelectedUser === user._id ? "bg-violet-600" : ""
@@ -176,7 +169,13 @@ function Message() {
                           >
                             <p className="break-words">{sms.message}</p>
                             <p className="text-xs text-gray-300 mt-1 text-right">
-                              {sms.date}
+                              {(() => {
+                                const d = new Date(sms.date);
+                                const day = d.getDate();
+                                const month = d.getMonth() + 1;
+                                const year = d.getFullYear();
+                                return `${day}.${month}.${year}`;
+                              })()}
                             </p>
                           </div>
                         </div>
