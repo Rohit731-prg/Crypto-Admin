@@ -32,7 +32,7 @@ function Chart({ toast }) {
       const res = await axios.get("coins/get", {
         headers: {
           "ngrok-skip-browser-warning": "true",
-        }
+        },
       });
       const data = res.data.data[0].list;
 
@@ -41,7 +41,6 @@ function Chart({ toast }) {
         date: new Date(item.date),
       }));
 
-      // Save original and current display data
       setOriginalPriceList(parsed);
       setPriceList(parsed);
     } catch (error) {
@@ -122,8 +121,8 @@ function Chart({ toast }) {
       {
         label: "Price",
         data: priceList.map((item) => item.price),
-        borderColor: "#a855f7", // vibrant purple
-        backgroundColor: "rgba(168, 85, 247, 0.1)", // soft purple fill
+        borderColor: "#a855f7",
+        backgroundColor: "rgba(168, 85, 247, 0.1)",
         pointBackgroundColor: "#a855f7",
         pointBorderColor: "#fff",
         pointHoverRadius: 6,
@@ -151,7 +150,7 @@ function Chart({ toast }) {
         ticks: {
           color: "#fff",
           font: { size: 12 },
-          callback: (value) => `$${(value / 1000).toFixed(2)}K`, // e.g. $34.55K
+          callback: (value) => `$${value.toFixed(2)}`, // Changed here
         },
         grid: {
           display: false,
